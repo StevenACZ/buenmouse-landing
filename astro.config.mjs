@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://buenmouse.dev",
+  site: "https://mouse.stevenacz.com",
   integrations: [
     sitemap({
       i18n: {
