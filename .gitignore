@@ -43,3 +43,6 @@ Desktop.ini
 
 # Cache
 .cache/
+
+# Private documentation
+CLAUDE.md

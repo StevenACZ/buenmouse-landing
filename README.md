@@ -1,43 +1,74 @@
-# Astro Starter Kit: Minimal
+# BuenMouse Landing Page
 
-```sh
-npm create astro@latest -- --template minimal
+<div align="center">
+  <img src="public/icon-256.png" alt="BuenMouse Logo" width="128" height="128">
+  
+  **Landing page for BuenMouse** - A productivity app for macOS that enhances your mouse and trackpad experience.
+
+[🌐 Live Site](https://mouse.stevenacz.com) · [📦 Main App](https://github.com/StevenACZ/BuenMouse)
+
+</div>
+
+---
+
+## ✨ Features
+
+- 🌍 **Internationalization** - Full English and Spanish support
+- 🔍 **SEO Optimized** - Schema.org, Open Graph, Twitter Cards, Sitemap
+- 📱 **PWA Ready** - Installable with manifest.json
+- ⚡ **Fast** - Built with Astro for optimal performance
+- 🎨 **Modern Design** - Dark theme with glassmorphism effects
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Astro](https://astro.build)
+- **Styling**: Vanilla CSS with CSS Variables
+- **i18n**: Custom implementation
+- **SEO**: @astrojs/sitemap, Schema.org JSON-LD
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 📂 Project Structure
 
-## 🚀 Project Structure
+```
+src/
+├── components/     # Astro components (Hero, Features, etc.)
+├── i18n/           # Internationalization (translations)
+├── layouts/        # Page layouts
+├── pages/          # Routes ([lang]/index.astro)
+└── styles/         # Global CSS
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+public/
+├── icons/          # App icons (various sizes)
+├── og-image.jpg    # Social sharing image
+├── manifest.json   # PWA manifest
+└── robots.txt      # Search engine directives
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🌐 Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+The site is deployed to `https://mouse.stevenacz.com`
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Sitemap URL
 
-## 🧞 Commands
+```
+https://mouse.stevenacz.com/sitemap-index.xml
+```
 
-All commands are run from the root of the project, from a terminal:
+## 📄 License
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+MIT © [Steven Coaila Zaa](https://github.com/StevenACZ)
