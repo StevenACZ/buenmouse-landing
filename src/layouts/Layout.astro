@@ -1,20 +1,33 @@
 ---
+import { useTranslations, defaultLang, type Language } from '../i18n';
+
 interface Props {
+  lang?: Language;
   title?: string;
   description?: string;
 }
 
 const { 
-  title = "BuenMouse - Revoluciona tu experiencia con mouse y trackpad en macOS",
-  description = "BuenMouse es una aplicación de productividad open source para macOS que mejora tu experiencia con Mission Control, navegación entre Spaces, zoom dinámico y más."
+  lang = defaultLang,
+  title: customTitle,
+  description: customDescription 
 } = Astro.props;
+
+const t = useTranslations(lang);
+
+const title = customTitle || t('meta.title');
+const description = customDescription || t('meta.description');
 
 const siteUrl = "https://buenmouse.dev";
 const ogImage = `${siteUrl}/og-image.png`;
+const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
+const alternateUrl = lang === 'es' ? `${siteUrl}/en/` : `${siteUrl}/es/`;
+const alternateLang = lang === 'es' ? 'en' : 'es';
+const skipLinkText = lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content';
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,14 +40,14 @@ const ogImage = `${siteUrl}/og-image.png`;
     <meta name="theme-color" content="#22D3EE" />
     <meta name="keywords" content="BuenMouse, macOS, productividad, mouse, trackpad, Mission Control, Spaces, zoom, scroll, aplicación, open source" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
+    <meta property="og:url" content={`${siteUrl}/${lang}/`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="BuenMouse" />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content={ogLocale} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={siteUrl} />
+    <meta name="twitter:url" content={`${siteUrl}/${lang}/`} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
@@ -42,10 +55,14 @@ const ogImage = `${siteUrl}/og-image.png`;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="canonical" href={siteUrl} />
+    <link rel="canonical" href={`${siteUrl}/${lang}/`} />
+    <!-- Alternate language link for SEO -->
+    <link rel="alternate" hreflang={alternateLang} href={alternateUrl} />
+    <link rel="alternate" hreflang={lang} href={`${siteUrl}/${lang}/`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/es/`} />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    <a href="#main-content" class="skip-link">{skipLinkText}</a>
     <slot />
     <script>
       const observer = new IntersectionObserver((entries) => {

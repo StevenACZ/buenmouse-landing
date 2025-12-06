@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Hero from '../../components/Hero.astro';
+import Features from '../../components/Features.astro';
+import Performance from '../../components/Performance.astro';
+import Privacy from '../../components/Privacy.astro';
+import Installation from '../../components/Installation.astro';
+import TechSpecs from '../../components/TechSpecs.astro';
+import FinalCTA from '../../components/FinalCTA.astro';
+import Footer from '../../components/Footer.astro';
+import { languages, type Language } from '../../i18n';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({
+    params: { lang },
+  }));
+}
+
+const { lang } = Astro.params as { lang: Language };
+---
+
+<Layout lang={lang}>
+  <Header lang={lang} />
+  <main id="main-content">
+    <Hero lang={lang} />
+    <Features lang={lang} />
+    <Performance lang={lang} />
+    <Privacy lang={lang} />
+    <Installation lang={lang} />
+    <TechSpecs lang={lang} />
+    <FinalCTA lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>

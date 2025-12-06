@@ -1,26 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Features from '../components/Features.astro';
-import Performance from '../components/Performance.astro';
-import Privacy from '../components/Privacy.astro';
-import Installation from '../components/Installation.astro';
-import TechSpecs from '../components/TechSpecs.astro';
-import FinalCTA from '../components/FinalCTA.astro';
-import Footer from '../components/Footer.astro';
----
+import { defaultLang } from '../i18n';
 
-<Layout>
-  <Header />
-  <main id="main-content">
-    <Hero />
-    <Features />
-    <Performance />
-    <Privacy />
-    <Installation />
-    <TechSpecs />
-    <FinalCTA />
-  </main>
-  <Footer />
-</Layout>
+// Redirect to default language
+return Astro.redirect(`/${defaultLang}/`);
+---
