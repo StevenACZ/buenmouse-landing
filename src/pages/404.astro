@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { defaultLang } from '../i18n';
+
+const lang = defaultLang;
+const title = lang === 'es' ? 'Página no encontrada - BuenMouse' : 'Page Not Found - BuenMouse';
+const description = lang === 'es' ? 'La página que buscas no existe.' : 'The page you are looking for does not exist.';
+---
+
+<Layout lang={lang} title={title} description={description}>
+  <main class="error-page">
+    <div class="container error-page__container">
+      <div class="error-page__content">
+        <h1 class="error-page__code">404</h1>
+        <h2 class="error-page__title">
+          {lang === 'es' ? 'Página no encontrada' : 'Page Not Found'}
+        </h2>
+        <p class="error-page__description">
+          {lang === 'es' 
+            ? 'Lo sentimos, la página que buscas no existe o ha sido movida.' 
+            : 'Sorry, the page you are looking for does not exist or has been moved.'}
+        </p>
+        <a href={`/${lang}/`} class="btn btn--primary btn--lg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          {lang === 'es' ? 'Volver al inicio' : 'Back to Home'}
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8);
+  }
+  
+  .error-page__container {
+    text-align: center;
+  }
+  
+  .error-page__content {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .error-page__code {
+    font-size: clamp(6rem, 20vw, 12rem);
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: var(--space-4);
+  }
+  
+  .error-page__title {
+    font-size: var(--text-2xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+  
+  .error-page__description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+  }
+</style>

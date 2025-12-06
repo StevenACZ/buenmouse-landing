@@ -1,4 +1,12 @@
 ---
+import { useTranslations, defaultLang, type Language } from '../i18n';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 
@@ -6,39 +14,39 @@ const currentYear = new Date().getFullYear();
   <div class="container">
     <div class="footer__top">
       <div class="footer__brand">
-        <a href="/" class="footer__logo">
+        <a href={`/${lang}/`} class="footer__logo">
           <img src="/icon-64.png" alt="BuenMouse" width="36" height="36" class="footer__logo-icon" />
           <span>BuenMouse</span>
         </a>
-        <p class="footer__tagline">Revoluciona tu experiencia con mouse y trackpad en macOS</p>
+        <p class="footer__tagline">{t('footer.tagline')}</p>
       </div>
       
       <div class="footer__links">
         <div class="footer__column">
-          <h4 class="footer__column-title">Producto</h4>
+          <h4 class="footer__column-title">{t('footer.product')}</h4>
           <ul class="footer__list">
-            <li><a href="#features">Características</a></li>
-            <li><a href="#performance">Rendimiento</a></li>
-            <li><a href="#privacy">Privacidad</a></li>
-            <li><a href="#installation">Instalación</a></li>
+            <li><a href="#features">{t('nav.features')}</a></li>
+            <li><a href="#performance">{t('nav.performance')}</a></li>
+            <li><a href="#privacy">{t('nav.privacy')}</a></li>
+            <li><a href="#installation">{t('nav.installation')}</a></li>
           </ul>
         </div>
         
         <div class="footer__column">
-          <h4 class="footer__column-title">Recursos</h4>
+          <h4 class="footer__column-title">{t('footer.resources')}</h4>
           <ul class="footer__list">
             <li><a href="https://github.com/StevenACZ/BuenMouse" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-            <li><a href="https://github.com/StevenACZ/BuenMouse/releases" target="_blank" rel="noopener noreferrer">Descargas</a></li>
-            <li><a href="https://github.com/StevenACZ/BuenMouse/issues" target="_blank" rel="noopener noreferrer">Reportar Bug</a></li>
-            <li><a href="https://github.com/StevenACZ/BuenMouse/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Licencia MIT</a></li>
+            <li><a href="https://github.com/StevenACZ/BuenMouse/releases" target="_blank" rel="noopener noreferrer">{t('footer.downloads')}</a></li>
+            <li><a href="https://github.com/StevenACZ/BuenMouse/issues" target="_blank" rel="noopener noreferrer">{t('footer.reportBug')}</a></li>
+            <li><a href="https://github.com/StevenACZ/BuenMouse/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">{t('footer.licenseMIT')}</a></li>
           </ul>
         </div>
         
         <div class="footer__column">
-          <h4 class="footer__column-title">Desarrollador</h4>
+          <h4 class="footer__column-title">{t('footer.developer')}</h4>
           <ul class="footer__list">
             <li><a href="https://github.com/StevenACZ" target="_blank" rel="noopener noreferrer">StevenACZ</a></li>
-            <li><a href="https://github.com/StevenACZ/BuenMouse/graphs/contributors" target="_blank" rel="noopener noreferrer">Contribuidores</a></li>
+            <li><a href="https://github.com/StevenACZ/BuenMouse/graphs/contributors" target="_blank" rel="noopener noreferrer">{t('footer.contributors')}</a></li>
           </ul>
         </div>
       </div>
@@ -46,10 +54,10 @@ const currentYear = new Date().getFullYear();
     
     <div class="footer__bottom">
       <p class="footer__copyright">
-        © {currentYear} BuenMouse. Todos los derechos reservados.
+        {t('footer.copyright', { year: currentYear })}
       </p>
       <p class="footer__made-with">
-        Hecho con <span class="footer__heart">❤️</span> para macOS
+        {t('footer.madeWith')}
       </p>
     </div>
   </div>
@@ -71,7 +79,6 @@ const currentYear = new Date().getFullYear();
 .footer__bottom { display: flex; align-items: center; justify-content: space-between; padding-top: var(--space-8); border-top: 1px solid rgba(255,255,255,0.05); }
 .footer__copyright { font-size: var(--text-sm); color: var(--color-text-muted); }
 .footer__made-with { font-size: var(--text-sm); color: var(--color-text-muted); display: flex; align-items: center; gap: var(--space-1); }
-.footer__heart { color: #ef4444; animation: pulse 1.5s ease-in-out infinite; }
 @media (max-width: 1024px) { .footer__top { grid-template-columns: 1fr; gap: var(--space-10); } .footer__brand { max-width: 100%; text-align: center; } .footer__logo { justify-content: center; } }
 @media (max-width: 640px) { .footer__links { grid-template-columns: 1fr; text-align: center; } .footer__bottom { flex-direction: column; gap: var(--space-4); text-align: center; } }
 </style>

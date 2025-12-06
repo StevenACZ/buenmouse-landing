@@ -1,9 +1,18 @@
 ---
+import { useTranslations, defaultLang, type Language } from '../i18n';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const privacyFeatures = [
-  { icon: '🚫', title: 'Cero telemetría', description: 'No recopilamos ningún dato de uso ni información personal' },
-  { icon: '💻', title: 'Procesamiento 100% local', description: 'Todo se ejecuta en tu Mac. Ningún dato sale de tu dispositivo' },
-  { icon: '🔓', title: 'Código abierto', description: 'Revisa cada línea de código en GitHub. Transparencia total' },
-  { icon: '🔐', title: 'Permisos mínimos', description: 'Solo solicitamos acceso a Accesibilidad, estrictamente necesario' }
+  { icon: '🚫', titleKey: 'privacy.zeroTelemetry.title' as const, descriptionKey: 'privacy.zeroTelemetry.description' as const },
+  { icon: '💻', titleKey: 'privacy.localProcessing.title' as const, descriptionKey: 'privacy.localProcessing.description' as const },
+  { icon: '🔓', titleKey: 'privacy.openSource.title' as const, descriptionKey: 'privacy.openSource.description' as const },
+  { icon: '🔐', titleKey: 'privacy.minimalPermissions.title' as const, descriptionKey: 'privacy.minimalPermissions.description' as const }
 ];
 ---
 
@@ -11,14 +20,13 @@ const privacyFeatures = [
   <div class="container">
     <div class="privacy__wrapper">
       <div class="privacy__content reveal">
-        <span class="privacy__label">Privacidad</span>
+        <span class="privacy__label">{t('privacy.label')}</span>
         <h2 class="privacy__title">
-          Tu privacidad es 
-          <span class="text-gradient">nuestra prioridad</span>
+          {t('privacy.title')} 
+          <span class="text-gradient">{t('privacy.titleHighlight')}</span>
         </h2>
         <p class="privacy__description">
-          En un mundo donde tus datos son el producto, BuenMouse toma un enfoque diferente. 
-          Absolutamente nada de lo que haces sale de tu Mac.
+          {t('privacy.description')}
         </p>
         
         <ul class="privacy__list">
@@ -26,8 +34,8 @@ const privacyFeatures = [
             <li class="privacy__item">
               <span class="privacy__icon">{feature.icon}</span>
               <div class="privacy__item-content">
-                <h3 class="privacy__item-title">{feature.title}</h3>
-                <p class="privacy__item-description">{feature.description}</p>
+                <h3 class="privacy__item-title">{t(feature.titleKey)}</h3>
+                <p class="privacy__item-description">{t(feature.descriptionKey)}</p>
               </div>
             </li>
           ))}

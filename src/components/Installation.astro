@@ -1,21 +1,30 @@
 ---
+import { useTranslations, defaultLang, type Language } from '../i18n';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const steps = [
-  { number: '1', title: 'Descarga', description: 'Descarga la última versión desde GitHub Releases o directamente desde esta página.' },
-  { number: '2', title: 'Instala', description: 'Arrastra BuenMouse a tu carpeta de Aplicaciones. Sin instaladores complicados.' },
-  { number: '3', title: 'Autoriza', description: 'Otorga permisos de Accesibilidad en Preferencias del Sistema y ¡listo!' }
+  { number: '1', titleKey: 'installation.step1.title' as const, descriptionKey: 'installation.step1.description' as const },
+  { number: '2', titleKey: 'installation.step2.title' as const, descriptionKey: 'installation.step2.description' as const },
+  { number: '3', titleKey: 'installation.step3.title' as const, descriptionKey: 'installation.step3.description' as const }
 ];
 ---
 
 <section class="installation section" id="installation">
   <div class="container">
     <div class="installation__header reveal">
-      <span class="installation__label">Instalación</span>
+      <span class="installation__label">{t('installation.label')}</span>
       <h2 class="installation__title">
-        Listo en 
-        <span class="text-gradient">3 simples pasos</span>
+        {t('installation.title')} 
+        <span class="text-gradient">{t('installation.titleHighlight')}</span>
       </h2>
       <p class="installation__description">
-        Sin complicaciones, sin configuraciones largas. BuenMouse funciona desde el primer momento.
+        {t('installation.description')}
       </p>
     </div>
     
@@ -24,8 +33,8 @@ const steps = [
         <div class="step reveal" style={`animation-delay: ${index * 0.15}s`}>
           <div class="step__number">{step.number}</div>
           <div class="step__content">
-            <h3 class="step__title">{step.title}</h3>
-            <p class="step__description">{step.description}</p>
+            <h3 class="step__title">{t(step.titleKey)}</h3>
+            <p class="step__description">{t(step.descriptionKey)}</p>
           </div>
           {index < steps.length - 1 && <div class="step__connector"></div>}
         </div>
@@ -37,7 +46,7 @@ const steps = [
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
-        Descargar BuenMouse
+        {t('installation.downloadButton')}
       </a>
     </div>
   </div>

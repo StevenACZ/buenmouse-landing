@@ -1,23 +1,31 @@
 ---
+import { useTranslations, defaultLang, type Language } from '../i18n';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const metrics = [
-  { value: '<1', unit: 'ms', label: 'Latencia', description: 'Respuesta casi instantánea' },
-  { value: '~15', unit: 'MB', label: 'Memoria', description: 'Huella mínima en RAM' },
-  { value: '<0.1', unit: '%', label: 'CPU', description: 'Impacto imperceptible' },
-  { value: '0', unit: '%', label: 'Batería', description: 'Consumo despreciable' }
+  { value: '<1', unit: 'ms', labelKey: 'performance.latency.label' as const, descriptionKey: 'performance.latency.description' as const },
+  { value: '~15', unit: 'MB', labelKey: 'performance.memory.label' as const, descriptionKey: 'performance.memory.description' as const },
+  { value: '<0.1', unit: '%', labelKey: 'performance.cpu.label' as const, descriptionKey: 'performance.cpu.description' as const },
+  { value: '0', unit: '%', labelKey: 'performance.battery.label' as const, descriptionKey: 'performance.battery.description' as const }
 ];
 ---
 
 <section class="performance section" id="performance">
   <div class="container">
     <div class="performance__header reveal">
-      <span class="performance__label">Rendimiento</span>
+      <span class="performance__label">{t('performance.label')}</span>
       <h2 class="performance__title">
-        Diseñado para ser 
-        <span class="text-gradient">invisible</span>
+        {t('performance.title')} 
+        <span class="text-gradient">{t('performance.titleHighlight')}</span>
       </h2>
       <p class="performance__description">
-        BuenMouse está optimizado para que nunca notes que está funcionando. 
-        Máxima eficiencia con mínimo impacto en tu sistema.
+        {t('performance.description')}
       </p>
     </div>
     
@@ -28,8 +36,8 @@ const metrics = [
             <span class="metric-card__number" data-value={metric.value}>{metric.value}</span>
             <span class="metric-card__unit">{metric.unit}</span>
           </div>
-          <h3 class="metric-card__label">{metric.label}</h3>
-          <p class="metric-card__description">{metric.description}</p>
+          <h3 class="metric-card__label">{t(metric.labelKey)}</h3>
+          <p class="metric-card__description">{t(metric.descriptionKey)}</p>
           <div class="metric-card__glow"></div>
         </div>
       ))}
@@ -39,7 +47,7 @@ const metrics = [
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
       </svg>
-      <p>Métricas medidas en MacBook Pro M1 con uso normal del sistema</p>
+      <p>{t('performance.note')}</p>
     </div>
   </div>
 </section>
