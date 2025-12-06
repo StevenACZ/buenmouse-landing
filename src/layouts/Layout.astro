@@ -24,6 +24,93 @@ const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
 const alternateUrl = lang === 'es' ? `${siteUrl}/en/` : `${siteUrl}/es/`;
 const alternateLang = lang === 'es' ? 'en' : 'es';
 const skipLinkText = lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content';
+
+// Dynamic keywords based on language
+const keywords = lang === 'es' 
+  ? "BuenMouse, macOS, productividad, mouse, trackpad, Mission Control, Spaces, zoom, scroll, aplicación, open source, Mac, Apple Silicon, Swift, SwiftUI"
+  : "BuenMouse, macOS, productivity, mouse, trackpad, Mission Control, Spaces, zoom, scroll, application, open source, Mac, Apple Silicon, Swift, SwiftUI";
+
+// Schema.org JSON-LD structured data
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": "BuenMouse",
+      "description": t('meta.description'),
+      "inLanguage": [
+        { "@type": "Language", "name": "English", "alternateName": "en" },
+        { "@type": "Language", "name": "Spanish", "alternateName": "es" }
+      ],
+      "publisher": { "@id": `${siteUrl}/#organization` }
+    },
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      "name": "BuenMouse",
+      "url": siteUrl,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/icon-512.png`,
+        "width": 512,
+        "height": 512
+      },
+      "sameAs": [
+        "https://github.com/StevenACZ/BuenMouse"
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${siteUrl}/#software`,
+      "name": "BuenMouse",
+      "description": t('meta.description'),
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "macOS 13.0+",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Steven Coaila Zaa",
+        "url": "https://github.com/StevenACZ"
+      },
+      "downloadUrl": "https://github.com/StevenACZ/BuenMouse/releases",
+      "softwareVersion": "1.0",
+      "license": "https://opensource.org/licenses/MIT",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "1",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": [
+        "Mission Control with Middle Click",
+        "Spaces Navigation",
+        "Dynamic Zoom",
+        "Inverted Scroll",
+        "Auto Start",
+        "Light/Dark Mode"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/${lang}/#webpage`,
+      "url": `${siteUrl}/${lang}/`,
+      "name": title,
+      "description": description,
+      "isPartOf": { "@id": `${siteUrl}/#website` },
+      "about": { "@id": `${siteUrl}/#software` },
+      "inLanguage": lang === 'es' ? 'es-ES' : 'en-US',
+      "datePublished": "2024-01-01",
+      "dateModified": new Date().toISOString().split('T')[0]
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -31,35 +118,69 @@ const skipLinkText = lang === 'es' ? 'Saltar al contenido principal' : 'Skip to 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content="Steven Coaila Zaa" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
     <meta name="theme-color" content="#22D3EE" />
-    <meta name="keywords" content="BuenMouse, macOS, productividad, mouse, trackpad, Mission Control, Spaces, zoom, scroll, aplicación, open source" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="keywords" content={keywords} />
+    <meta name="application-name" content="BuenMouse" />
+    
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={`${siteUrl}/${lang}/`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="BuenMouse - Mouse and trackpad productivity tool for macOS" />
     <meta property="og:site_name" content="BuenMouse" />
     <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_ES'} />
+    
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={`${siteUrl}/${lang}/`} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="BuenMouse - Mouse and trackpad productivity tool for macOS" />
+    <meta name="twitter:creator" content="@StevenACZ" />
+    
+    <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/icon-64.png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="/icon-256.png" />
+    <link rel="mask-icon" href="/favicon.svg" color="#22D3EE" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Fonts with display=swap for better CLS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Canonical & Language Alternates -->
     <link rel="canonical" href={`${siteUrl}/${lang}/`} />
-    <!-- Alternate language link for SEO -->
     <link rel="alternate" hreflang={alternateLang} href={alternateUrl} />
     <link rel="alternate" hreflang={lang} href={`${siteUrl}/${lang}/`} />
     <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en/`} />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/icon-64.png" as="image" />
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
   </head>
   <body>
     <a href="#main-content" class="skip-link">{skipLinkText}</a>

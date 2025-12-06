@@ -1,0 +1,26 @@
+# Robots.txt for BuenMouse
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://buenmouse.dev/sitemap-index.xml
+
+# Crawl-delay (optional, be polite to bots)
+Crawl-delay: 1
+
+# Block AI training bots (optional but recommended for privacy)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
