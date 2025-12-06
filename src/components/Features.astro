@@ -1,34 +1,43 @@
 ---
+import { useTranslations, defaultLang, type Language } from '../i18n';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const features = [
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
-    title: 'Mission Control con Middle Click',
-    description: 'Activa Mission Control con un simple clic del botón central del mouse. Acceso instantáneo a todas tus ventanas y espacios.'
+    titleKey: 'features.missionControl.title' as const,
+    descriptionKey: 'features.missionControl.description' as const
   },
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>`,
-    title: 'Navegación entre Spaces',
-    description: 'Arrastra horizontalmente con el botón central para cambiar entre espacios de trabajo de forma fluida.'
+    titleKey: 'features.spacesNavigation.title' as const,
+    descriptionKey: 'features.spacesNavigation.description' as const
   },
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>`,
-    title: 'Zoom Dinámico',
-    description: 'Ctrl + Scroll para zoom inteligente en cualquier aplicación. Control preciso del nivel de ampliación.'
+    titleKey: 'features.dynamicZoom.title' as const,
+    descriptionKey: 'features.dynamicZoom.description' as const
   },
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>`,
-    title: 'Scroll Invertido',
-    description: 'Natural scrolling personalizable para mouse. Configura la dirección que se sienta más natural para ti.'
+    titleKey: 'features.invertedScroll.title' as const,
+    descriptionKey: 'features.invertedScroll.description' as const
   },
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`,
-    title: 'Inicio Automático',
-    description: 'Lanzamiento con el sistema operativo. BuenMouse estará listo desde el momento que enciendes tu Mac.'
+    titleKey: 'features.autoStart.title' as const,
+    descriptionKey: 'features.autoStart.description' as const
   },
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>`,
-    title: 'Modo Claro/Oscuro',
-    description: 'Se adapta automáticamente a la apariencia del sistema. Integración perfecta con tu configuración de macOS.'
+    titleKey: 'features.darkMode.title' as const,
+    descriptionKey: 'features.darkMode.description' as const
   }
 ];
 ---
@@ -36,14 +45,13 @@ const features = [
 <section class="features section" id="features">
   <div class="container">
     <div class="features__header reveal">
-      <span class="features__label">Características</span>
+      <span class="features__label">{t('features.label')}</span>
       <h2 class="features__title">
-        Todo lo que necesitas para 
-        <span class="text-gradient">dominar tu mouse</span>
+        {t('features.title')} 
+        <span class="text-gradient">{t('features.titleHighlight')}</span>
       </h2>
       <p class="features__description">
-        BuenMouse transforma la forma en que interactúas con tu Mac. 
-        Características pensadas para potenciar tu productividad.
+        {t('features.description')}
       </p>
     </div>
     
@@ -51,8 +59,8 @@ const features = [
       {features.map((feature, index) => (
         <article class="feature-card reveal" style={`animation-delay: ${index * 0.1}s`}>
           <div class="feature-card__icon" set:html={feature.icon} />
-          <h3 class="feature-card__title">{feature.title}</h3>
-          <p class="feature-card__description">{feature.description}</p>
+          <h3 class="feature-card__title">{t(feature.titleKey)}</h3>
+          <p class="feature-card__description">{t(feature.descriptionKey)}</p>
         </article>
       ))}
     </div>
