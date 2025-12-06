@@ -299,12 +299,13 @@ const navLabel = lang === 'es' ? 'Navegación principal' : 'Main navigation';
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10, 10, 15, 0.98);
-    backdrop-filter: blur(16px);
+    z-index: 100;
+    background: rgb(10, 10, 15);
     padding: var(--space-8) var(--space-6);
     opacity: 0;
     visibility: hidden;
     transition: all var(--transition-base);
+    overflow-y: auto;
   }
   
   .header__mobile-menu.active {
