@@ -11,7 +11,7 @@
     <div class="hero__content">
       <div class="hero__badge animate-fade-in-up">
         <span class="hero__badge-dot"></span>
-        <span>Versión 2.0+ disponible</span>
+        <span>Versión 1.2.0 disponible</span>
         <span class="hero__badge-tag">Open Source</span>
       </div>
       
@@ -69,7 +69,10 @@
               <span class="hero__mockup-dot hero__mockup-dot--yellow"></span>
               <span class="hero__mockup-dot hero__mockup-dot--green"></span>
             </div>
-            <span class="hero__mockup-title">BuenMouse</span>
+            <div class="hero__mockup-title-wrapper">
+              <img src="/icon-64.png" alt="" width="24" height="24" class="hero__mockup-icon" />
+              <span class="hero__mockup-title">BuenMouse</span>
+            </div>
           </div>
           <div class="hero__mockup-content">
             <div class="hero__mockup-toggle"><span>Mission Control</span><div class="hero__mockup-switch hero__mockup-switch--active"></div></div>
@@ -79,7 +82,7 @@
             <div class="hero__mockup-toggle"><span>Inicio Automático</span><div class="hero__mockup-switch hero__mockup-switch--active"></div></div>
             <div class="hero__mockup-footer">
               <div class="hero__mockup-status"><span class="hero__mockup-status-dot"></span>Activo</div>
-              <span class="hero__mockup-version">v2.0</span>
+              <span class="hero__mockup-version">v1.2.0</span>
             </div>
           </div>
         </div>
@@ -117,7 +120,9 @@
 .hero__mockup-dot--red { background: #ff5f57; }
 .hero__mockup-dot--yellow { background: #febc2e; }
 .hero__mockup-dot--green { background: #28c840; }
-.hero__mockup-title { flex: 1; text-align: center; font-size: var(--text-sm); font-weight: 500; color: var(--color-text-secondary); }
+.hero__mockup-title-wrapper { display: flex; align-items: center; justify-content: center; gap: var(--space-2); flex: 1; }
+.hero__mockup-icon { border-radius: 4px; }
+.hero__mockup-title { font-size: var(--text-sm); font-weight: 500; color: var(--color-text-secondary); }
 .hero__mockup-content { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
 .hero__mockup-toggle { display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) var(--space-4); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-lg); font-size: var(--text-sm); color: var(--color-text-secondary); }
 .hero__mockup-switch { width: 44px; height: 24px; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-full); position: relative; }
