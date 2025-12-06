@@ -114,8 +114,10 @@ const navLabel = lang === 'es' ? 'Navegación principal' : 'Main navigation';
   }
   
   .header--scrolled {
-    background: rgba(10, 10, 15, 0.95);
-    padding: var(--space-3) 0;
+    background: rgba(10, 10, 15, 0.4);
+    backdrop-filter: blur(20px);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   }
   
   .header__nav {
@@ -187,6 +189,7 @@ const navLabel = lang === 'es' ? 'Navegación principal' : 'Main navigation';
     display: flex;
     align-items: center;
     gap: var(--space-3);
+    height: 40px;
   }
   
   .header__lang-switch {
@@ -201,6 +204,7 @@ const navLabel = lang === 'es' ? 'Navegación principal' : 'Main navigation';
     font-size: var(--text-sm);
     font-weight: 500;
     transition: all var(--transition-fast);
+    height: 100%;
   }
   
   .header__lang-switch:hover {
@@ -222,7 +226,7 @@ const navLabel = lang === 'es' ? 'Navegación principal' : 'Main navigation';
     align-items: center;
     justify-content: center;
     width: 40px;
-    height: 40px;
+    height: 100%;
     border-radius: var(--radius-lg);
     color: var(--color-text-secondary);
     background: var(--color-bg-glass);
@@ -238,6 +242,7 @@ const navLabel = lang === 'es' ? 'Navegación principal' : 'Main navigation';
   
   .header__cta {
     padding: var(--space-2) var(--space-4);
+    height: 100%;
   }
   
   .header__menu-btn {

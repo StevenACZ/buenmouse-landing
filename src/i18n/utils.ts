@@ -33,7 +33,7 @@ export function useTranslations(lang: Language) {
 /**
  * Create a URL for a different language
  */
-export function useTranslatedPath(lang: Language) {
+export function useTranslatedPath() {
   return function translatePath(path: string, targetLang: Language): string {
     // Remove current lang prefix if exists
     const pathWithoutLang = path.replace(/^\/(es|en)/, "");
