@@ -1,0 +1,66 @@
+---
+const metrics = [
+  { value: '<1', unit: 'ms', label: 'Latencia', description: 'Respuesta casi instantánea' },
+  { value: '~15', unit: 'MB', label: 'Memoria', description: 'Huella mínima en RAM' },
+  { value: '<0.1', unit: '%', label: 'CPU', description: 'Impacto imperceptible' },
+  { value: '0', unit: '%', label: 'Batería', description: 'Consumo despreciable' }
+];
+---
+
+<section class="performance section" id="performance">
+  <div class="container">
+    <div class="performance__header reveal">
+      <span class="performance__label">Rendimiento</span>
+      <h2 class="performance__title">
+        Diseñado para ser 
+        <span class="text-gradient">invisible</span>
+      </h2>
+      <p class="performance__description">
+        BuenMouse está optimizado para que nunca notes que está funcionando. 
+        Máxima eficiencia con mínimo impacto en tu sistema.
+      </p>
+    </div>
+    
+    <div class="performance__grid">
+      {metrics.map((metric, index) => (
+        <div class="metric-card reveal" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="metric-card__value">
+            <span class="metric-card__number" data-value={metric.value}>{metric.value}</span>
+            <span class="metric-card__unit">{metric.unit}</span>
+          </div>
+          <h3 class="metric-card__label">{metric.label}</h3>
+          <p class="metric-card__description">{metric.description}</p>
+          <div class="metric-card__glow"></div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="performance__note reveal">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+      </svg>
+      <p>Métricas medidas en MacBook Pro M1 con uso normal del sistema</p>
+    </div>
+  </div>
+</section>
+
+<style>
+.performance { position: relative; }
+.performance__header { text-align: center; max-width: 600px; margin: 0 auto var(--space-16); }
+.performance__label { display: inline-block; padding: var(--space-2) var(--space-4); background: var(--color-bg-glass); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-full); font-size: var(--text-sm); color: var(--color-primary); font-weight: 500; margin-bottom: var(--space-4); }
+.performance__title { margin-bottom: var(--space-4); }
+.performance__description { font-size: var(--text-lg); }
+.performance__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); margin-bottom: var(--space-12); }
+.metric-card { position: relative; padding: var(--space-8); background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-xl); text-align: center; overflow: hidden; transition: all var(--transition-base); }
+.metric-card:hover { border-color: rgba(102,126,234,0.3); transform: translateY(-4px); }
+.metric-card__value { display: flex; align-items: baseline; justify-content: center; gap: var(--space-1); margin-bottom: var(--space-3); }
+.metric-card__number { font-size: var(--text-4xl); font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.metric-card__unit { font-size: var(--text-xl); font-weight: 600; color: var(--color-text-secondary); }
+.metric-card__label { font-size: var(--text-lg); font-weight: 600; color: var(--color-text-primary); margin-bottom: var(--space-2); }
+.metric-card__description { font-size: var(--text-sm); color: var(--color-text-muted); }
+.metric-card__glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 100px; background: radial-gradient(circle, rgba(102,126,234,0.2), transparent 70%); opacity: 0; transition: opacity var(--transition-base); }
+.metric-card:hover .metric-card__glow { opacity: 1; }
+.performance__note { display: flex; align-items: center; justify-content: center; gap: var(--space-3); padding: var(--space-4); background: var(--color-bg-glass); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-lg); color: var(--color-text-muted); font-size: var(--text-sm); }
+@media (max-width: 1024px) { .performance__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .performance__grid { grid-template-columns: 1fr; } }
+</style>

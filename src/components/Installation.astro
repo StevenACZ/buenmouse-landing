@@ -1,0 +1,61 @@
+---
+const steps = [
+  { number: '1', title: 'Descarga', description: 'Descarga la última versión desde GitHub Releases o directamente desde esta página.' },
+  { number: '2', title: 'Instala', description: 'Arrastra BuenMouse a tu carpeta de Aplicaciones. Sin instaladores complicados.' },
+  { number: '3', title: 'Autoriza', description: 'Otorga permisos de Accesibilidad en Preferencias del Sistema y ¡listo!' }
+];
+---
+
+<section class="installation section" id="installation">
+  <div class="container">
+    <div class="installation__header reveal">
+      <span class="installation__label">Instalación</span>
+      <h2 class="installation__title">
+        Listo en 
+        <span class="text-gradient">3 simples pasos</span>
+      </h2>
+      <p class="installation__description">
+        Sin complicaciones, sin configuraciones largas. BuenMouse funciona desde el primer momento.
+      </p>
+    </div>
+    
+    <div class="installation__steps">
+      {steps.map((step, index) => (
+        <div class="step reveal" style={`animation-delay: ${index * 0.15}s`}>
+          <div class="step__number">{step.number}</div>
+          <div class="step__content">
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__description">{step.description}</p>
+          </div>
+          {index < steps.length - 1 && <div class="step__connector"></div>}
+        </div>
+      ))}
+    </div>
+    
+    <div class="installation__cta reveal">
+      <a href="https://github.com/StevenACZ/BuenMouse/releases" class="btn btn--primary btn--lg">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        Descargar BuenMouse
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.installation__header { text-align: center; max-width: 600px; margin: 0 auto var(--space-16); }
+.installation__label { display: inline-block; padding: var(--space-2) var(--space-4); background: var(--color-bg-glass); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-full); font-size: var(--text-sm); color: var(--color-primary); font-weight: 500; margin-bottom: var(--space-4); }
+.installation__title { margin-bottom: var(--space-4); }
+.installation__description { font-size: var(--text-lg); }
+.installation__steps { display: flex; justify-content: center; gap: var(--space-8); margin-bottom: var(--space-12); }
+.step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1; max-width: 280px; }
+.step__number { width: 64px; height: 64px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: var(--text-2xl); font-weight: 800; color: white; margin-bottom: var(--space-4); box-shadow: var(--shadow-glow); }
+.step__content { padding: var(--space-6); background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-xl); flex: 1; }
+.step__title { font-size: var(--text-lg); font-weight: 600; color: var(--color-text-primary); margin-bottom: var(--space-2); }
+.step__description { font-size: var(--text-sm); color: var(--color-text-secondary); }
+.step__connector { position: absolute; top: 32px; left: calc(50% + 40px); width: calc(100% - 80px); height: 2px; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); opacity: 0.3; }
+.step__connector::after { content: ''; position: absolute; right: -6px; top: -4px; border: solid var(--color-secondary); border-width: 0 2px 2px 0; padding: 4px; transform: rotate(-45deg); opacity: 0.5; }
+.installation__cta { text-align: center; }
+@media (max-width: 768px) { .installation__steps { flex-direction: column; align-items: center; gap: var(--space-6); } .step { max-width: 100%; } .step__connector { display: none; } }
+</style>

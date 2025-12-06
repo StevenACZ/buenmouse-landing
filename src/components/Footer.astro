@@ -1,0 +1,87 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo">
+          <svg class="footer__logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <defs>
+              <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#667eea" />
+                <stop offset="100%" style="stop-color:#764ba2" />
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="8" fill="url(#footer-logo-gradient)"/>
+            <path d="M10 16C10 12.6863 12.6863 10 16 10C19.3137 10 22 12.6863 22 16C22 19.3137 19.3137 22 16 22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="16" r="3" fill="white"/>
+          </svg>
+          <span>BuenMouse</span>
+        </a>
+        <p class="footer__tagline">Revoluciona tu experiencia con mouse y trackpad en macOS</p>
+      </div>
+      
+      <div class="footer__links">
+        <div class="footer__column">
+          <h4 class="footer__column-title">Producto</h4>
+          <ul class="footer__list">
+            <li><a href="#features">Características</a></li>
+            <li><a href="#performance">Rendimiento</a></li>
+            <li><a href="#privacy">Privacidad</a></li>
+            <li><a href="#installation">Instalación</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer__column">
+          <h4 class="footer__column-title">Recursos</h4>
+          <ul class="footer__list">
+            <li><a href="https://github.com/StevenACZ/BuenMouse" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://github.com/StevenACZ/BuenMouse/releases" target="_blank" rel="noopener noreferrer">Descargas</a></li>
+            <li><a href="https://github.com/StevenACZ/BuenMouse/issues" target="_blank" rel="noopener noreferrer">Reportar Bug</a></li>
+            <li><a href="https://github.com/StevenACZ/BuenMouse/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Licencia MIT</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer__column">
+          <h4 class="footer__column-title">Desarrollador</h4>
+          <ul class="footer__list">
+            <li><a href="https://github.com/StevenACZ" target="_blank" rel="noopener noreferrer">Steven Coaila Zaa</a></li>
+            <li><a href="https://github.com/StevenACZ/BuenMouse/graphs/contributors" target="_blank" rel="noopener noreferrer">Contribuidores</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        © {currentYear} BuenMouse. Todos los derechos reservados.
+      </p>
+      <p class="footer__made-with">
+        Hecho con <span class="footer__heart">❤️</span> para macOS
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+.footer { background: var(--color-bg-secondary); border-top: 1px solid rgba(255,255,255,0.05); padding: var(--space-16) 0 var(--space-8); }
+.footer__top { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-16); margin-bottom: var(--space-12); }
+.footer__brand { max-width: 280px; }
+.footer__logo { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-4); transition: opacity var(--transition-fast); }
+.footer__logo:hover { opacity: 0.8; }
+.footer__logo span { background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.footer__tagline { font-size: var(--text-sm); color: var(--color-text-muted); }
+.footer__links { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8); }
+.footer__column-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-text-primary); margin-bottom: var(--space-4); text-transform: uppercase; letter-spacing: 0.05em; }
+.footer__list { display: flex; flex-direction: column; gap: var(--space-3); }
+.footer__list a { font-size: var(--text-sm); color: var(--color-text-secondary); transition: color var(--transition-fast); }
+.footer__list a:hover { color: var(--color-primary); }
+.footer__bottom { display: flex; align-items: center; justify-content: space-between; padding-top: var(--space-8); border-top: 1px solid rgba(255,255,255,0.05); }
+.footer__copyright { font-size: var(--text-sm); color: var(--color-text-muted); }
+.footer__made-with { font-size: var(--text-sm); color: var(--color-text-muted); display: flex; align-items: center; gap: var(--space-1); }
+.footer__heart { color: #ef4444; animation: pulse 1.5s ease-in-out infinite; }
+@media (max-width: 1024px) { .footer__top { grid-template-columns: 1fr; gap: var(--space-10); } .footer__brand { max-width: 100%; text-align: center; } .footer__logo { justify-content: center; } }
+@media (max-width: 640px) { .footer__links { grid-template-columns: 1fr; text-align: center; } .footer__bottom { flex-direction: column; gap: var(--space-4); text-align: center; } }
+</style>

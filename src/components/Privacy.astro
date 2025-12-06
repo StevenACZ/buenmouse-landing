@@ -1,0 +1,78 @@
+---
+const privacyFeatures = [
+  { icon: '🚫', title: 'Cero telemetría', description: 'No recopilamos ningún dato de uso ni información personal' },
+  { icon: '💻', title: 'Procesamiento 100% local', description: 'Todo se ejecuta en tu Mac. Ningún dato sale de tu dispositivo' },
+  { icon: '🔓', title: 'Código abierto', description: 'Revisa cada línea de código en GitHub. Transparencia total' },
+  { icon: '🔐', title: 'Permisos mínimos', description: 'Solo solicitamos acceso a Accesibilidad, estrictamente necesario' }
+];
+---
+
+<section class="privacy section" id="privacy">
+  <div class="container">
+    <div class="privacy__wrapper">
+      <div class="privacy__content reveal">
+        <span class="privacy__label">Privacidad</span>
+        <h2 class="privacy__title">
+          Tu privacidad es 
+          <span class="text-gradient">nuestra prioridad</span>
+        </h2>
+        <p class="privacy__description">
+          En un mundo donde tus datos son el producto, BuenMouse toma un enfoque diferente. 
+          Absolutamente nada de lo que haces sale de tu Mac.
+        </p>
+        
+        <ul class="privacy__list">
+          {privacyFeatures.map(feature => (
+            <li class="privacy__item">
+              <span class="privacy__icon">{feature.icon}</span>
+              <div class="privacy__item-content">
+                <h3 class="privacy__item-title">{feature.title}</h3>
+                <p class="privacy__item-description">{feature.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <div class="privacy__visual reveal">
+        <div class="privacy__shield">
+          <div class="privacy__shield-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="privacy__shield-glow"></div>
+          <div class="privacy__shield-ring privacy__shield-ring--1"></div>
+          <div class="privacy__shield-ring privacy__shield-ring--2"></div>
+          <div class="privacy__shield-ring privacy__shield-ring--3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.privacy { background: var(--color-bg-secondary); position: relative; }
+.privacy::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 80%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); }
+.privacy__wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: center; }
+.privacy__label { display: inline-block; padding: var(--space-2) var(--space-4); background: var(--color-bg-glass); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-full); font-size: var(--text-sm); color: var(--color-primary); font-weight: 500; margin-bottom: var(--space-4); }
+.privacy__title { margin-bottom: var(--space-4); }
+.privacy__description { font-size: var(--text-lg); margin-bottom: var(--space-8); }
+.privacy__list { display: flex; flex-direction: column; gap: var(--space-4); }
+.privacy__item { display: flex; gap: var(--space-4); padding: var(--space-4); background: var(--color-bg-glass); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-lg); transition: all var(--transition-fast); }
+.privacy__item:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+.privacy__icon { font-size: var(--text-2xl); flex-shrink: 0; }
+.privacy__item-title { font-size: var(--text-base); font-weight: 600; color: var(--color-text-primary); margin-bottom: var(--space-1); }
+.privacy__item-description { font-size: var(--text-sm); color: var(--color-text-secondary); }
+.privacy__visual { display: flex; justify-content: center; align-items: center; }
+.privacy__shield { position: relative; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
+.privacy__shield-inner { width: 100px; height: 100px; background: var(--gradient-primary); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; color: white; box-shadow: var(--shadow-glow-lg); animation: float 3s ease-in-out infinite; }
+.privacy__shield-inner svg { width: 50px; height: 50px; }
+.privacy__shield-glow { position: absolute; inset: 0; background: radial-gradient(circle, rgba(102,126,234,0.3), transparent 60%); }
+.privacy__shield-ring { position: absolute; border: 1px solid rgba(102,126,234,0.2); border-radius: 50%; animation: pulse 3s ease-in-out infinite; }
+.privacy__shield-ring--1 { inset: 20%; animation-delay: 0s; }
+.privacy__shield-ring--2 { inset: 5%; animation-delay: 0.5s; }
+.privacy__shield-ring--3 { inset: -10%; animation-delay: 1s; }
+@media (max-width: 1024px) { .privacy__wrapper { grid-template-columns: 1fr; text-align: center; } .privacy__visual { order: -1; margin-bottom: var(--space-8); } }
+</style>

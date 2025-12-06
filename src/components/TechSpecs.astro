@@ -1,0 +1,76 @@
+---
+const specs = [
+  { label: 'Sistema Operativo', value: 'macOS 13.0+', icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>` },
+  { label: 'Tecnología', value: 'Swift + SwiftUI', icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.09 4.56c-.7-1.03-1.5-1.99-2.4-2.85-.35-.34-.7-.66-1.06-.97C13.27.43 12.72.22 12.17.08c-.08-.02-.17-.04-.26-.06-.09-.02-.18-.02-.27-.02-.09 0-.18 0-.27.02-.09.02-.18.04-.26.06-.55.14-1.1.35-1.46.66-.36.31-.71.63-1.06.97-.9.86-1.7 1.82-2.4 2.85-.7 1.03-1.3 2.14-1.78 3.31-.48 1.17-.84 2.4-1.06 3.67-.22 1.27-.32 2.58-.28 3.89.04 1.31.22 2.62.55 3.89.33 1.27.79 2.49 1.39 3.64.6 1.15 1.33 2.22 2.18 3.19.85.97 1.82 1.84 2.88 2.58 1.06.74 2.21 1.35 3.43 1.79.61.22 1.23.4 1.87.52.64.12 1.29.19 1.94.19s1.3-.07 1.94-.19c.64-.12 1.26-.3 1.87-.52 1.22-.44 2.37-1.05 3.43-1.79 1.06-.74 2.03-1.61 2.88-2.58.85-.97 1.58-2.04 2.18-3.19.6-1.15 1.06-2.37 1.39-3.64.33-1.27.51-2.58.55-3.89.04-1.31-.06-2.62-.28-3.89-.22-1.27-.58-2.5-1.06-3.67-.48-1.17-1.08-2.28-1.78-3.31zM12 21.5c-5.25 0-9.5-4.25-9.5-9.5S6.75 2.5 12 2.5s9.5 4.25 9.5 9.5-4.25 9.5-9.5 9.5z"/></svg>` },
+  { label: 'Arquitectura', value: 'Universal (Intel + Apple Silicon)', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>` },
+  { label: 'Licencia', value: 'MIT (Open Source)', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 18c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z"/><circle cx="12" cy="12" r="2"/></svg>` }
+];
+---
+
+<section class="tech-specs section" id="tech-specs">
+  <div class="container">
+    <div class="tech-specs__header reveal">
+      <span class="tech-specs__label">Especificaciones</span>
+      <h2 class="tech-specs__title">
+        Construido con 
+        <span class="text-gradient">tecnología nativa</span>
+      </h2>
+      <p class="tech-specs__description">
+        Desarrollado 100% en Swift y SwiftUI para máxima integración con macOS.
+      </p>
+    </div>
+    
+    <div class="tech-specs__grid">
+      {specs.map((spec, index) => (
+        <div class="spec-card reveal" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="spec-card__icon" set:html={spec.icon} />
+          <div class="spec-card__content">
+            <span class="spec-card__label">{spec.label}</span>
+            <span class="spec-card__value">{spec.value}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="tech-specs__github reveal">
+      <div class="tech-specs__github-content">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+        <div>
+          <h3>Código Abierto</h3>
+          <p>Explora, contribuye y aprende del código fuente en GitHub</p>
+        </div>
+      </div>
+      <a href="https://github.com/StevenACZ/BuenMouse" class="btn btn--secondary" target="_blank" rel="noopener noreferrer">
+        Ver Repositorio
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7v10"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.tech-specs { background: var(--color-bg-secondary); position: relative; }
+.tech-specs::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 80%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); }
+.tech-specs__header { text-align: center; max-width: 600px; margin: 0 auto var(--space-16); }
+.tech-specs__label { display: inline-block; padding: var(--space-2) var(--space-4); background: var(--color-bg-glass); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-full); font-size: var(--text-sm); color: var(--color-primary); font-weight: 500; margin-bottom: var(--space-4); }
+.tech-specs__title { margin-bottom: var(--space-4); }
+.tech-specs__description { font-size: var(--text-lg); }
+.tech-specs__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-12); }
+.spec-card { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-5); background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-xl); transition: all var(--transition-fast); }
+.spec-card:hover { border-color: rgba(102,126,234,0.3); }
+.spec-card__icon { width: 48px; height: 48px; flex-shrink: 0; padding: var(--space-3); background: var(--gradient-primary); border-radius: var(--radius-lg); color: white; }
+.spec-card__icon :global(svg) { width: 100%; height: 100%; }
+.spec-card__content { display: flex; flex-direction: column; gap: var(--space-1); }
+.spec-card__label { font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.spec-card__value { font-size: var(--text-sm); font-weight: 600; color: var(--color-text-primary); }
+.tech-specs__github { display: flex; align-items: center; justify-content: space-between; padding: var(--space-6); background: var(--color-bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-xl); }
+.tech-specs__github-content { display: flex; align-items: center; gap: var(--space-4); color: var(--color-text-secondary); }
+.tech-specs__github-content h3 { font-size: var(--text-lg); color: var(--color-text-primary); margin-bottom: var(--space-1); }
+.tech-specs__github-content p { font-size: var(--text-sm); }
+@media (max-width: 1024px) { .tech-specs__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .tech-specs__grid { grid-template-columns: 1fr; } .tech-specs__github { flex-direction: column; text-align: center; gap: var(--space-4); } .tech-specs__github-content { flex-direction: column; } }
+</style>
