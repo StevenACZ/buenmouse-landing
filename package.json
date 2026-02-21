@@ -6,7 +6,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "npx prettier --write .",
+    "format:check": "npx prettier --check .",
+    "typecheck": "astro check"
   },
   "dependencies": {
     "astro": "^5.16.4"
