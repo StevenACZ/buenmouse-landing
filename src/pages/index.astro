@@ -1,6 +1,20 @@
 ---
 import { defaultLang } from '../i18n';
-
-// Redirect to default language
-return Astro.redirect(`/${defaultLang}/`);
+const defaultPath = `/${defaultLang}/`;
+const canonicalUrl = `https://mouse.stevenacz.com${defaultPath}`;
 ---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta http-equiv="refresh" content={`0;url=${defaultPath}`} />
+    <title>Redirecting to {defaultPath}</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href={defaultPath}>{defaultPath}</a>.</p>
+  </body>
+</html>

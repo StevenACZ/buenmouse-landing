@@ -26,6 +26,16 @@
 - **i18n**: Custom implementation
 - **SEO**: @astrojs/sitemap, Schema.org JSON-LD
 
+## 🔒 SEO & Performance
+
+- Indexable content lives on localized URLs: `/en/` and `/es/`
+- Root `/` is a redirect helper page with `noindex` and canonical target to `/en/`
+- Sitemap excludes non-canonical helper/error routes (root and 404)
+- `hreflang` alternates are defined for English, Spanish, and `x-default`
+- Shared layout sets a strict CSP for scripts, styles, fonts, images, and connections
+- Structured data uses one JSON-LD `@graph` including `WebSite`, `SoftwareApplication`, `Person`, and `BreadcrumbList`
+- Latest release metadata is fetched at build time from GitHub API (no client token usage)
+
 ## 🚀 Quick Start
 
 ```bash
@@ -53,7 +63,7 @@ src/
 └── styles/         # Global CSS
 
 public/
-├── icons/          # App icons (various sizes)
+├── icon-*.png      # App icons (32 to 512)
 ├── og-image.jpg    # Social sharing image
 ├── manifest.json   # PWA manifest
 └── robots.txt      # Search engine directives

@@ -15,9 +15,9 @@ export function getLangFromUrl(url: URL): Language {
 export function useTranslations(lang: Language) {
   return function t(
     key: TranslationKey,
-    params?: Record<string, string | number>
+    params?: Record<string, string | number>,
   ): string {
-    let text = ui[lang][key] || ui[defaultLang][key] || key;
+    let text: string = ui[lang][key] || ui[defaultLang][key] || key;
 
     // Replace parameters like {version} with actual values
     if (params) {

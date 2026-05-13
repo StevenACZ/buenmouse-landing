@@ -22,12 +22,12 @@ export async function getLatestRelease(): Promise<ReleaseInfo> {
           // Add User-Agent to avoid rate limiting
           "User-Agent": "BuenMouse-Landing-Page",
         },
-      }
+      },
     );
 
     if (!response.ok) {
       console.warn(
-        `GitHub API returned ${response.status}, using fallback version`
+        `GitHub API returned ${response.status}, using fallback version`,
       );
       return getFallbackRelease();
     }

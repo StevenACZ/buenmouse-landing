@@ -14,7 +14,10 @@ export default defineConfig({
           es: "es-ES",
         },
       },
-      filter: (page) => !page.includes("/404"),
+      filter: (page) => {
+        const { pathname } = new URL(page);
+        return pathname !== "/" && pathname !== "/404/" && pathname !== "/404";
+      },
       changefreq: "weekly",
       priority: 0.7,
       lastmod: new Date(),
@@ -26,6 +29,7 @@ export default defineConfig({
   vite: {
     build: {
       cssMinify: true,
+      assetsInlineLimit: 0,
     },
   },
   // Improve SEO with trailing slashes
