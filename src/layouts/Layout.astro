@@ -217,7 +217,11 @@ const schemaOrg = {
     <link rel="preload" href="/icon-64.png" as="image" />
     
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(schemaOrg)}
+    />
   </head>
   <body>
     <a href="#main-content" class="skip-link">{skipLinkText}</a>

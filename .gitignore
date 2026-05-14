@@ -43,3 +43,7 @@ Desktop.ini
 
 # Cache
 .cache/
+
+# Local documentation
+docs/
+Docs/

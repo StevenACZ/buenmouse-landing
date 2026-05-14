@@ -8,7 +8,6 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 const languages = getLanguages();
-const currentLang = languages.find(l => l.code === lang);
 const otherLang = languages.find(l => l.code !== lang);
 
 const navLinks = [
