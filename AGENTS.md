@@ -56,7 +56,8 @@ Use npm because this repo tracks `package-lock.json`. Do not commit generated `d
 ## SEO and Structured Data
 
 - Shared metadata lives in `src/layouts/Layout.astro`.
-- Keep title, description, keywords, canonical URL, `hreflang`, Open Graph, Twitter Card, theme color, CSP, and JSON-LD aligned per locale.
+- Keep title, description, keywords, canonical URL, `hreflang`, Open Graph, Twitter Card, theme color, and JSON-LD aligned per locale.
+- CSP is served as an HTTP header from nginx (`infrastructure/nginx/snippets/mouse-csp.conf` on the VPS), not as a `<meta>` tag. `frame-ancestors` is silently ignored when set via meta, so the header form is the only one that enforces it.
 - Generated sitemap should include only canonical indexable routes plus valid localized alternates.
 - Keep JSON-LD consolidated and non-conflicting: `WebSite`, `SoftwareApplication`, `Person`, and `BreadcrumbList`.
 - Keep `public/manifest.json` aligned with the production app name, icons, categories, `lang`, and `dir`.
@@ -85,8 +86,8 @@ For SEO work, also inspect the generated `dist/` HTML and sitemap for:
 - `application/ld+json`
 - canonical and alternate locale links
 - `og:image`
-- CSP meta tag
 - valid sitemap XML
+- CSP HTTP header from the VPS response (`curl -sI` against the live URL)
 
 ## Git Safety
 

@@ -30,22 +30,9 @@ const breadcrumbHomeName = lang === 'es' ? 'Inicio' : 'Home';
 const personName = "Steven Coaila Zaa";
 
 // Dynamic keywords based on language
-const keywords = lang === 'es' 
+const keywords = lang === 'es'
   ? "BuenMouse, macOS, productividad, mouse, trackpad, Mission Control, Spaces, zoom, scroll, aplicación, open source, Mac, Apple Silicon, Swift, SwiftUI"
   : "BuenMouse, macOS, productivity, mouse, trackpad, Mission Control, Spaces, zoom, scroll, application, open source, Mac, Apple Silicon, Swift, SwiftUI";
-
-const cspPolicy = [
-  "default-src 'self'",
-  "script-src 'self' https://static.cloudflareinsights.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data:",
-  "connect-src 'self' https://api.github.com https://cloudflareinsights.com",
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "object-src 'none'"
-].join("; ");
 
 // Schema.org JSON-LD structured data
 const schemaOrg = {
@@ -156,8 +143,7 @@ const schemaOrg = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="generator" content={Astro.generator} />
-    <meta http-equiv="Content-Security-Policy" content={cspPolicy} />
-    
+
     <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
