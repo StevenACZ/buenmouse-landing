@@ -1,236 +1,181 @@
 ---
-import { useTranslations, defaultLang, type Language } from '../i18n';
-import { getLatestRelease } from '../lib/github';
+import { fetchLatestVersion } from "../data/github";
 
 interface Props {
-  lang?: Language;
   title?: string;
   description?: string;
 }
 
-const { 
-  lang = defaultLang,
-  title: customTitle,
-  description: customDescription 
-} = Astro.props;
-
-const t = useTranslations(lang);
-
-const title = customTitle || t('meta.title');
-const description = customDescription || t('meta.description');
-
 const siteUrl = "https://mouse.stevenacz.com";
+const siteName = "BuenMouse";
+const latestVersion = (await fetchLatestVersion()).replace(/^v/, "");
+const defaultTitle =
+  "BuenMouse — Trackpad gestures for your mouse on macOS";
+const defaultDescription =
+  "A free, open source macOS menu bar app that brings trackpad-style gestures to any mouse: Mission Control with a middle click, Switch Spaces by drag, Ctrl+Scroll zoom, and natural-direction scrolling.";
+const ogDescription =
+  "Bring trackpad gestures to your mouse on macOS — Mission Control, Switch Spaces, scroll zoom and natural scrolling, from the menu bar.";
+const twitterDescription =
+  "Trackpad gestures for your mouse on macOS. Free, open source, native menubar app.";
 const ogImage = `${siteUrl}/og-image.jpg`;
-const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
-const alternateUrl = lang === 'es' ? `${siteUrl}/en/` : `${siteUrl}/es/`;
-const alternateLang = lang === 'es' ? 'en' : 'es';
-const skipLinkText = lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content';
-const pageUrl = `${siteUrl}/${lang}/`;
-const localeCode = lang === 'es' ? 'es-ES' : 'en-US';
-const breadcrumbHomeName = lang === 'es' ? 'Inicio' : 'Home';
-const personName = "Steven Coaila Zaa";
 
-const latestRelease = await getLatestRelease();
+const { title: customTitle, description: customDescription } = Astro.props;
+const title = customTitle ?? defaultTitle;
+const description = customDescription ?? defaultDescription;
 
-// Dynamic keywords based on language
-const keywords = lang === 'es'
-  ? "BuenMouse, macOS, productividad, mouse, trackpad, Mission Control, Spaces, zoom, scroll, aplicación, open source, Mac, Apple Silicon, Swift, SwiftUI"
-  : "BuenMouse, macOS, productivity, mouse, trackpad, Mission Control, Spaces, zoom, scroll, application, open source, Mac, Apple Silicon, Swift, SwiftUI";
+const cspPolicy = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data:",
+  "connect-src 'self' https://api.github.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+].join("; ");
 
-// Schema.org JSON-LD structured data
-const schemaOrg = {
+const schemaGraph = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
-      "url": siteUrl,
-      "name": "BuenMouse",
-      "description": t('meta.description'),
-      "inLanguage": ["en-US", "es-ES"],
-      "publisher": { "@id": `${siteUrl}/#organization` }
-    },
-    {
-      "@type": "Organization",
-      "@id": `${siteUrl}/#organization`,
-      "name": "BuenMouse",
-      "url": siteUrl,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${siteUrl}/icon-512.png`,
-        "width": 512,
-        "height": 512
-      },
-      "sameAs": [
-        "https://github.com/StevenACZ/BuenMouse"
-      ]
-    },
-    {
-      "@type": "Person",
-      "@id": `${siteUrl}/#person`,
-      "name": personName,
-      "url": "https://stevenacz.com",
-      "sameAs": [
-        "https://github.com/StevenACZ"
-      ]
+      url: `${siteUrl}/`,
+      name: siteName,
+      description:
+        "Free, open source macOS menu bar app that adds trackpad gestures to any mouse.",
+      inLanguage: "en",
+      publisher: { "@id": `${siteUrl}/#person` },
     },
     {
       "@type": "SoftwareApplication",
       "@id": `${siteUrl}/#software`,
-      "name": "BuenMouse",
-      "url": pageUrl,
-      "description": t('meta.description'),
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "macOS 13.0+",
-      "inLanguage": ["en-US", "es-ES"],
-      "image": ogImage,
-      "offers": {
+      name: siteName,
+      applicationCategory: "UtilitiesApplication",
+      operatingSystem: "macOS 13.0+",
+      description:
+        "Mouse gestures for macOS: Mission Control, Switch Spaces, scroll zoom, natural scroll direction. Native menu bar app, MIT licensed.",
+      softwareVersion: latestVersion,
+      offers: {
         "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+        price: "0",
+        priceCurrency: "USD",
       },
-      "author": { "@id": `${siteUrl}/#person` },
-      "publisher": { "@id": `${siteUrl}/#organization` },
-      "downloadUrl": "https://github.com/StevenACZ/BuenMouse/releases",
-      "softwareVersion": latestRelease.version,
-      "license": "https://opensource.org/licenses/MIT",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "ratingCount": "1",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
-      "featureList": [
-        "Mission Control with Middle Click",
-        "Spaces Navigation",
-        "Dynamic Zoom",
-        "Inverted Scroll",
-        "Auto Start",
-        "Light/Dark Mode"
-      ]
+      publisher: { "@id": `${siteUrl}/#person` },
+      creator: { "@id": `${siteUrl}/#person` },
+      license: "https://opensource.org/licenses/MIT",
+      downloadUrl: "https://github.com/StevenACZ/BuenMouse/releases/latest",
+      sameAs: [
+        "https://github.com/StevenACZ/BuenMouse",
+        "https://github.com/StevenACZ/BuenMouse/releases",
+      ],
+      url: `${siteUrl}/`,
+      featureList: [
+        "Middle Click to open Mission Control",
+        "Middle drag to switch Spaces with adjustable distance and invert option",
+        "Ctrl + Scroll to zoom in and out",
+        "Invert scroll for natural-direction wheel scrolling",
+        "Gesture Monitoring on or off from the menu bar",
+        "Launch at login",
+      ],
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": `${pageUrl}#breadcrumb`,
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": breadcrumbHomeName,
-          "item": pageUrl
-        }
-      ]
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: "Steven Coaila Zaa",
+      alternateName: "StevenACZ",
+      url: "https://stevenacz.com",
+      sameAs: ["https://stevenacz.com", "https://github.com/StevenACZ"],
     },
-    {
-      "@type": "WebPage",
-      "@id": `${pageUrl}#webpage`,
-      "url": pageUrl,
-      "name": title,
-      "description": description,
-      "isPartOf": { "@id": `${siteUrl}/#website` },
-      "about": { "@id": `${siteUrl}/#software` },
-      "breadcrumb": { "@id": `${pageUrl}#breadcrumb` },
-      "inLanguage": localeCode,
-      "datePublished": "2024-01-01",
-      "dateModified": new Date().toISOString().split('T')[0]
-    }
-  ]
+  ],
 };
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="generator" content={Astro.generator} />
+    <meta http-equiv="Content-Security-Policy" content={cspPolicy} />
 
-    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="BuenMouse, macOS mouse gestures, trackpad gestures for mouse, Mission Control mouse, Switch Spaces mouse, ctrl scroll zoom, natural scroll mac, menu bar mac app, open source mac app"
+    />
     <meta name="author" content="Steven Coaila Zaa" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
     <meta name="googlebot" content="index, follow" />
-    <meta name="theme-color" content="#22D3EE" />
+    <meta name="theme-color" content="#22d3ee" />
     <meta name="color-scheme" content="dark" />
-    <meta name="keywords" content={keywords} />
-    <meta name="application-name" content="BuenMouse" />
-    
-    <!-- Open Graph / Facebook -->
+    <meta name="application-name" content={siteName} />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={pageUrl} />
+    <meta property="og:url" content={`${siteUrl}/`} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="BuenMouse landing preview" />
     <meta property="og:image:width" content="1024" />
     <meta property="og:image:height" content="1024" />
-    <meta property="og:image:alt" content="BuenMouse - Mouse and trackpad productivity tool for macOS" />
-    <meta property="og:site_name" content="BuenMouse" />
-    <meta property="og:locale" content={ogLocale} />
-    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_ES'} />
-    
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={pageUrl} />
+    <meta name="twitter:url" content={`${siteUrl}/`} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={twitterDescription} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content="BuenMouse - Mouse and trackpad productivity tool for macOS" />
+    <meta name="twitter:image:alt" content="BuenMouse landing preview" />
     <meta name="twitter:creator" content="@StevenACZ" />
-    
-    <!-- Favicon & Icons -->
+
+    <!-- Canonical, manifest & sitemap -->
+    <link rel="canonical" href={`${siteUrl}/`} />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
     <link rel="icon" type="image/png" sizes="64x64" href="/icon-64.png" />
     <link rel="apple-touch-icon" sizes="256x256" href="/icon-256.png" />
-    <link rel="mask-icon" href="/favicon.svg" color="#22D3EE" />
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json" />
-    
-    <!-- Fonts with display=swap for better CLS -->
+    <link rel="mask-icon" href="/favicon.svg" color="#22d3ee" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    
-    <!-- Canonical & Language Alternates -->
-    <link rel="canonical" href={pageUrl} />
-    <link rel="alternate" hreflang={alternateLang} href={alternateUrl} />
-    <link rel="alternate" hreflang={lang} href={pageUrl} />
-    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en/`} />
-    
-    <!-- Preload critical resources -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+
+    <!-- Preload critical asset -->
     <link rel="preload" href="/icon-64.png" as="image" />
-    
+
     <!-- Schema.org JSON-LD -->
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify(schemaOrg)}
+      set:html={JSON.stringify(schemaGraph)}
     />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">{skipLinkText}</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <slot />
-    <script>
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-      });
-    </script>
   </body>
 </html>
 
-<style is:global>
-@import '../styles/global.css';
+<style is:global lang="scss">
+  @use "../styles/main.scss";
 </style>

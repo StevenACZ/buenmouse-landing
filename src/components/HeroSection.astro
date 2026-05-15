@@ -1,0 +1,454 @@
+---
+import { fetchLatestVersion } from "../data/github";
+import DownloadIcon from "./icons/DownloadIcon.astro";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import MouseIcon from "./icons/MouseIcon.astro";
+import SettingsIcon from "./icons/SettingsIcon.astro";
+import CheckIcon from "./icons/CheckIcon.astro";
+import ChevronRightIcon from "./icons/ChevronRightIcon.astro";
+import RefreshIcon from "./icons/RefreshIcon.astro";
+import InfoIcon from "./icons/InfoIcon.astro";
+import PowerIcon from "./icons/PowerIcon.astro";
+
+const version = (await fetchLatestVersion()).replace(/^v/, "");
+const badges = [`v${version}`, "macOS 13.0+", "Open source", "MIT"];
+const microproof = [
+  "Mission Control",
+  "Switch Spaces",
+  "Scroll Zoom",
+  "Natural scroll",
+];
+---
+
+<section class="hero">
+  <div class="hero__backdrop">
+    <div class="hero__orb hero__orb--left"></div>
+    <div class="hero__orb hero__orb--right"></div>
+    <div class="hero__grid"></div>
+  </div>
+
+  <div class="hero__container container">
+    <div class="hero__content">
+      <div class="hero__badges animate-fade-in-up">
+        {badges.map((b) => <span class="hero__badge">{b}</span>)}
+      </div>
+
+      <h1 class="hero__title animate-fade-in-up delay-100">
+        Trackpad gestures
+        <span class="text-gradient">for your mouse</span>
+      </h1>
+
+      <p class="hero__subtitle animate-fade-in-up delay-200">
+        BuenMouse is a free, open source menu bar app that brings the gestures
+        you miss from the trackpad to any mouse on macOS — Mission Control,
+        Switch Spaces, Ctrl + Scroll zoom and natural-direction scrolling.
+      </p>
+
+      <div class="hero__actions animate-fade-in-up delay-300">
+        <a
+          href="https://github.com/StevenACZ/BuenMouse/releases/latest"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-lg"
+        >
+          <DownloadIcon size={18} />
+          Download for macOS
+        </a>
+        <a
+          href="https://github.com/StevenACZ/BuenMouse"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary btn-lg"
+        >
+          <GitHubIcon size={18} />
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="hero__meta animate-fade-in-up delay-400">
+        <div class="hero__shortcut">
+          <span>Try it:</span>
+          <kbd>⌃</kbd>
+          <span>+</span>
+          <kbd>Scroll</kbd>
+          <span>to zoom in any app</span>
+        </div>
+        <div class="hero__microproof">
+          {
+            microproof.map((m, i) => (
+              <span>
+                {m}
+                {i < microproof.length - 1 ? " · " : ""}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__visual animate-scale-in delay-200">
+      <div class="menubar" aria-hidden="true">
+        <div class="menubar__bar">
+          <div class="menubar__bar-app menubar__bar-app--active">
+            <MouseIcon size={14} />
+          </div>
+          <span class="menubar__bar-dot"></span>
+          <span class="menubar__bar-dot menubar__bar-dot--muted"></span>
+          <span class="menubar__bar-dot menubar__bar-dot--muted"></span>
+        </div>
+        <div class="menubar__dropdown">
+          <div class="menubar__row menubar__row--cta">
+            <SettingsIcon size={16} class="menubar__row-icon" />
+            <span class="menubar__row-text">Show Settings</span>
+            <span class="menubar__row-shortcut">⌘,</span>
+          </div>
+
+          <div class="menubar__divider"></div>
+
+          <div class="menubar__row menubar__row--check">
+            <CheckIcon size={16} class="menubar__row-check" />
+            <span class="menubar__row-text">Gesture Monitoring</span>
+          </div>
+          <div class="menubar__row menubar__row--check">
+            <CheckIcon size={16} class="menubar__row-check" />
+            <span class="menubar__row-text">Launch at Login</span>
+          </div>
+          <div class="menubar__row">
+            <span class="menubar__row-spacer"></span>
+            <span class="menubar__row-text">Appearance</span>
+            <ChevronRightIcon size={14} class="menubar__row-chevron" />
+          </div>
+
+          <div class="menubar__divider"></div>
+
+          <div class="menubar__row">
+            <RefreshIcon size={16} class="menubar__row-icon" />
+            <span class="menubar__row-text">Reset to Defaults…</span>
+          </div>
+          <div class="menubar__row">
+            <InfoIcon size={16} class="menubar__row-icon" />
+            <span class="menubar__row-text">About BuenMouse</span>
+          </div>
+
+          <div class="menubar__divider"></div>
+
+          <div class="menubar__row">
+            <PowerIcon size={16} class="menubar__row-icon" />
+            <span class="menubar__row-text">Quit BuenMouse</span>
+            <span class="menubar__row-shortcut">⌘Q</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .hero {
+    position: relative;
+    padding: 10rem 0 6rem;
+    overflow: hidden;
+
+    &__backdrop {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    &__orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(80px);
+
+      &--left {
+        top: 6rem;
+        left: -6rem;
+        width: 22rem;
+        height: 22rem;
+        background: rgba(34, 211, 238, 0.18);
+      }
+
+      &--right {
+        top: 10rem;
+        right: -2rem;
+        width: 26rem;
+        height: 26rem;
+        background: rgba(59, 130, 246, 0.12);
+      }
+    }
+
+    &__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.022) 1px,
+          transparent 1px
+        );
+      background-size: 56px 56px;
+      mask-image: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 1),
+        transparent 78%
+      );
+    }
+
+    &__container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: $spacing-3xl;
+      align-items: center;
+    }
+
+    &__content {
+      max-width: 620px;
+    }
+
+    &__badges {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: $spacing-xl;
+    }
+
+    &__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: $neutral-200;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    &__title {
+      font-size: clamp(2.6rem, 5.6vw, 4.6rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.035em;
+      margin-bottom: $spacing-lg;
+
+      span {
+        display: block;
+      }
+    }
+
+    &__subtitle {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: $neutral-400;
+      margin-bottom: $spacing-2xl;
+      max-width: 600px;
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-md;
+      margin-bottom: $spacing-xl;
+    }
+
+    &__meta {
+      display: grid;
+      gap: $spacing-md;
+    }
+
+    &__shortcut {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      color: $neutral-300;
+      font-size: 0.95rem;
+    }
+
+    &__microproof {
+      color: $neutral-500;
+      font-size: 0.88rem;
+    }
+  }
+
+  .menubar {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6))
+      drop-shadow(0 0 60px rgba(34, 211, 238, 0.08));
+
+    &__bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.35rem 0.75rem;
+      margin: 0 auto 0.4rem;
+      background: rgba(20, 22, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      width: max-content;
+      backdrop-filter: blur(20px);
+    }
+
+    &__bar-app {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      color: $neutral-50;
+      background: rgba(255, 255, 255, 0.08);
+
+      &--active {
+        background: rgba(34, 211, 238, 0.18);
+        border: 1px solid rgba(34, 211, 238, 0.4);
+        color: $primary-200;
+      }
+    }
+
+    &__bar-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+
+      &--muted {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    &__dropdown {
+      position: relative;
+      padding: 0.5rem;
+      border-radius: 16px;
+      background: rgba(28, 30, 36, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(24px);
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: -7px;
+        left: 1.5rem;
+        width: 14px;
+        height: 14px;
+        background: rgba(28, 30, 36, 0.94);
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        transform: rotate(45deg);
+        border-radius: 2px 0 0 0;
+      }
+    }
+
+    &__row {
+      display: grid;
+      grid-template-columns: 22px 1fr auto;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 8px;
+      color: $neutral-100;
+      font-size: 0.92rem;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      &--cta {
+        background: rgba(255, 255, 255, 0.05);
+        font-weight: 600;
+      }
+    }
+
+    &__row-icon {
+      color: $neutral-300;
+      justify-self: center;
+    }
+
+    &__row-check {
+      color: $primary-300;
+      justify-self: center;
+    }
+
+    &__row-spacer {
+      width: 16px;
+      height: 16px;
+    }
+
+    &__row-text {
+      color: $neutral-100;
+    }
+
+    &__row-shortcut {
+      font-family:
+        "SF Mono", ui-monospace, Menlo, monospace;
+      color: $neutral-500;
+      font-size: 0.82rem;
+    }
+
+    &__row-chevron {
+      color: $neutral-500;
+    }
+
+    &__divider {
+      height: 1px;
+      margin: 0.35rem 0.7rem;
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  @include below-lg {
+    .hero {
+      padding: 8rem 0 4rem;
+
+      &__container {
+        grid-template-columns: 1fr;
+        gap: $spacing-2xl;
+      }
+
+      &__content {
+        max-width: 100%;
+      }
+
+      &__visual {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    .menubar {
+      margin: 0 auto;
+    }
+  }
+
+  @include below-md {
+    .hero {
+      padding: 7rem 0 3rem;
+
+      &__title {
+        font-size: clamp(2.2rem, 9vw, 3.4rem);
+      }
+
+      &__actions {
+        flex-direction: column;
+
+        :global(.btn) {
+          width: 100%;
+        }
+      }
+    }
+  }
+</style>

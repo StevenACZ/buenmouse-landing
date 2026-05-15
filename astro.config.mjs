@@ -7,16 +7,9 @@ export default defineConfig({
   site: "https://mouse.stevenacz.com",
   integrations: [
     sitemap({
-      i18n: {
-        defaultLocale: "en",
-        locales: {
-          en: "en-US",
-          es: "es-ES",
-        },
-      },
       filter: (page) => {
         const { pathname } = new URL(page);
-        return pathname !== "/" && pathname !== "/404/" && pathname !== "/404";
+        return pathname !== "/404/" && pathname !== "/404";
       },
       changefreq: "weekly",
       priority: 0.7,
@@ -32,6 +25,5 @@ export default defineConfig({
       assetsInlineLimit: 0,
     },
   },
-  // Improve SEO with trailing slashes
   trailingSlash: "always",
 });

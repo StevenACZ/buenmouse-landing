@@ -1,0 +1,206 @@
+---
+import DownloadIcon from "./icons/DownloadIcon.astro";
+import MouseIcon from "./icons/MouseIcon.astro";
+import ShieldIcon from "./icons/ShieldIcon.astro";
+
+const steps = [
+  {
+    icon: DownloadIcon,
+    title: "Download the DMG",
+    description:
+      "Grab the latest signed disk image from GitHub releases. A single .dmg, no installer, no helper services.",
+  },
+  {
+    icon: MouseIcon,
+    title: "Drag BuenMouse to Applications",
+    description:
+      "Mount the DMG and drop BuenMouse into your Applications folder. Open it once — the cursor icon appears in your menu bar.",
+  },
+  {
+    icon: ShieldIcon,
+    title: "Grant Accessibility permission",
+    description:
+      "macOS asks for Accessibility so BuenMouse can read your mouse events. Approve it and gestures activate immediately.",
+  },
+];
+---
+
+<section id="how-it-works" class="howto section">
+  <div class="container">
+    <div class="howto__header">
+      <span class="eyebrow">Setup in 60 seconds</span>
+      <h2 class="howto__title">
+        Install once, <span class="text-gradient">forget it's there</span>
+      </h2>
+      <p class="howto__description">
+        BuenMouse is a native menu bar app — no kernel extension, no helper
+        daemon, no setup wizard.
+      </p>
+    </div>
+
+    <ol class="howto__steps">
+      {
+        steps.map((step, index) => (
+          <li class="howto-step">
+            <div class="howto-step__index">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+            </div>
+            <div class="howto-step__icon">
+              <step.icon size={22} />
+            </div>
+            <h3 class="howto-step__title">{step.title}</h3>
+            <p class="howto-step__description">{step.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="howto__path">
+      <span class="howto__path-label">Permission path:</span>
+      <kbd>System Settings</kbd>
+      <span class="howto__path-arrow">→</span>
+      <kbd>Privacy &amp; Security</kbd>
+      <span class="howto__path-arrow">→</span>
+      <kbd>Accessibility</kbd>
+      <span class="howto__path-arrow">→</span>
+      <kbd>BuenMouse</kbd>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .howto {
+    background: $bg-dark-secondary;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+    &__header {
+      max-width: 720px;
+      margin: 0 auto $spacing-3xl;
+      text-align: center;
+    }
+
+    &__title {
+      margin: $spacing-md 0;
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    &__description {
+      color: $neutral-400;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    &__steps {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: $spacing-lg;
+      margin-bottom: $spacing-xl;
+    }
+
+    &__path {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: $spacing-md $spacing-lg;
+      border-radius: $radius-lg;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: $neutral-300;
+      font-size: 0.9rem;
+    }
+
+    &__path-label {
+      color: $neutral-400;
+      font-weight: 600;
+    }
+
+    &__path-arrow {
+      color: $neutral-600;
+    }
+  }
+
+  .howto-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    padding: $spacing-xl;
+    border-radius: $radius-2xl;
+    background: $bg-dark-tertiary;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition:
+      border-color $transition-base,
+      transform $transition-base;
+
+    &:hover {
+      border-color: rgba(34, 211, 238, 0.22);
+      transform: translateY(-3px);
+    }
+
+    &__index {
+      position: absolute;
+      top: -16px;
+      left: $spacing-xl;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 32px;
+      padding: 0 0.6rem;
+      border-radius: $radius-full;
+      background: rgba(34, 211, 238, 0.16);
+      border: 1px solid rgba(34, 211, 238, 0.32);
+      color: $primary-200;
+      font-family: $font-mono;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    &__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      color: $primary-300;
+      margin: 0.4rem 0 0.2rem;
+    }
+
+    &__title {
+      font-size: 1.1rem;
+      line-height: 1.3;
+      color: $neutral-50;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    &__description {
+      color: $neutral-400;
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+  }
+
+  @include below-md {
+    .howto__steps {
+      grid-template-columns: 1fr;
+    }
+
+    .howto__path {
+      font-size: 0.82rem;
+    }
+  }
+</style>

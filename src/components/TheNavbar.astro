@@ -1,0 +1,310 @@
+---
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import DownloadIcon from "./icons/DownloadIcon.astro";
+import MenuIcon from "./icons/MenuIcon.astro";
+import CloseIcon from "./icons/CloseIcon.astro";
+
+const links = [
+  { href: "#gestures", label: "Gestures" },
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#performance", label: "Performance" },
+  { href: "#privacy", label: "Privacy" },
+];
+---
+
+<header class="navbar" data-navbar>
+  <div class="container navbar__inner">
+    <a href="#main-content" class="navbar__brand" aria-label="BuenMouse home">
+      <img
+        src="/icon-64.png"
+        alt=""
+        class="navbar__logo"
+        width="32"
+        height="32"
+        loading="eager"
+      />
+      <span class="navbar__brand-text">BuenMouse</span>
+    </a>
+
+    <nav class="navbar__links" aria-label="Primary">
+      {
+        links.map((link) => (
+          <a href={link.href} class="navbar__link">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="navbar__actions">
+      <a
+        href="https://github.com/StevenACZ/BuenMouse"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="navbar__github"
+        aria-label="View BuenMouse on GitHub"
+      >
+        <GitHubIcon size={18} />
+        <span>GitHub</span>
+      </a>
+      <a
+        href="https://github.com/StevenACZ/BuenMouse/releases/latest"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary navbar__download"
+      >
+        <DownloadIcon size={16} />
+        <span>Download</span>
+      </a>
+    </div>
+
+    <button
+      type="button"
+      class="navbar__toggle"
+      data-mobile-toggle
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      <span class="navbar__toggle-icon navbar__toggle-icon--open">
+        <MenuIcon size={22} />
+      </span>
+      <span class="navbar__toggle-icon navbar__toggle-icon--close">
+        <CloseIcon size={22} />
+      </span>
+    </button>
+  </div>
+
+  <div class="navbar__mobile" data-mobile-menu>
+    <nav class="navbar__mobile-links" aria-label="Mobile primary">
+      {
+        links.map((link) => (
+          <a href={link.href} class="navbar__mobile-link" data-mobile-link>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="navbar__mobile-actions">
+      <a
+        href="https://github.com/StevenACZ/BuenMouse"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-secondary"
+      >
+        <GitHubIcon size={18} />
+        <span>View on GitHub</span>
+      </a>
+      <a
+        href="https://github.com/StevenACZ/BuenMouse/releases/latest"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+      >
+        <DownloadIcon size={18} />
+        <span>Download for macOS</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(
+    "[data-mobile-toggle]",
+  );
+  const menu = document.querySelector<HTMLDivElement>("[data-mobile-menu]");
+  const navbar = document.querySelector<HTMLElement>("[data-navbar]");
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-mobile-link]");
+
+  function setOpen(open: boolean) {
+    if (!toggle || !menu) return;
+    toggle.setAttribute("aria-expanded", String(open));
+    menu.classList.toggle("is-open", open);
+    document.body.classList.toggle("is-menu-open", open);
+  }
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    setOpen(!isOpen);
+  });
+
+  links.forEach((link) => link.addEventListener("click", () => setOpen(false)));
+
+  function onScroll() {
+    navbar?.classList.toggle("is-scrolled", window.scrollY > 8);
+  }
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(8, 9, 12, 0.55);
+    backdrop-filter: blur(18px) saturate(140%);
+    border-bottom: 1px solid transparent;
+    transition: background $transition-base, border-color $transition-base;
+
+    &.is-scrolled {
+      background: rgba(8, 9, 12, 0.82);
+      border-bottom-color: rgba(255, 255, 255, 0.06);
+    }
+
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      gap: $spacing-lg;
+    }
+
+    &__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: $neutral-50;
+      font-weight: 700;
+    }
+
+    &__logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    &__brand-text {
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    &__links {
+      display: inline-flex;
+      align-items: center;
+      gap: $spacing-md;
+    }
+
+    &__link {
+      padding: $spacing-sm $spacing-md;
+      color: $neutral-300;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-radius: $radius-md;
+      transition: color $transition-fast, background $transition-fast;
+
+      &:hover {
+        color: $neutral-50;
+        background: rgba(255, 255, 255, 0.04);
+      }
+    }
+
+    &__actions {
+      display: inline-flex;
+      align-items: center;
+      gap: $spacing-sm;
+    }
+
+    &__github {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem $spacing-md;
+      border-radius: $radius-md;
+      color: $neutral-200;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: color $transition-fast, background $transition-fast;
+
+      &:hover {
+        color: $neutral-50;
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    &__download {
+      padding: 0.55rem 1rem;
+      font-size: 0.92rem;
+    }
+
+    &__toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: $radius-md;
+      color: $neutral-100;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      align-items: center;
+      justify-content: center;
+
+      .navbar__toggle-icon--close {
+        display: none;
+      }
+
+      &[aria-expanded="true"] {
+        .navbar__toggle-icon--open {
+          display: none;
+        }
+        .navbar__toggle-icon--close {
+          display: inline-flex;
+        }
+      }
+    }
+
+    &__mobile {
+      display: none;
+      flex-direction: column;
+      gap: $spacing-md;
+      padding: $spacing-lg;
+      background: rgba(8, 9, 12, 0.92);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+      &.is-open {
+        display: flex;
+      }
+    }
+
+    &__mobile-links {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+    }
+
+    &__mobile-link {
+      padding: 0.85rem $spacing-md;
+      border-radius: $radius-md;
+      color: $neutral-100;
+      font-weight: 600;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+    }
+
+    &__mobile-actions {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-sm;
+    }
+  }
+
+  @include below-lg {
+    .navbar__links {
+      display: none;
+    }
+
+    .navbar__actions {
+      display: none;
+    }
+
+    .navbar__toggle {
+      display: inline-flex;
+    }
+  }
+</style>

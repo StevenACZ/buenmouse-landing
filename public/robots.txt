@@ -2,14 +2,11 @@
 
 User-agent: *
 Allow: /
-
-# Sitemap
-Sitemap: https://mouse.stevenacz.com/sitemap-index.xml
-
-# Crawl-delay (optional, be polite to bots)
 Crawl-delay: 1
 
-# Block AI training bots (optional but recommended for privacy)
+Sitemap: https://mouse.stevenacz.com/sitemap-index.xml
+
+# Block AI training crawlers
 User-agent: GPTBot
 Disallow: /
 

@@ -1,20 +1,24 @@
 ---
-import { defaultLang } from '../i18n';
-const defaultPath = `/${defaultLang}/`;
-const canonicalUrl = `https://mouse.stevenacz.com${defaultPath}`;
+import Layout from "../layouts/Layout.astro";
+import TheNavbar from "../components/TheNavbar.astro";
+import HeroSection from "../components/HeroSection.astro";
+import GesturesSection from "../components/GesturesSection.astro";
+import HowItWorksSection from "../components/HowItWorksSection.astro";
+import PerformanceSection from "../components/PerformanceSection.astro";
+import PrivacySection from "../components/PrivacySection.astro";
+import DownloadSection from "../components/DownloadSection.astro";
+import TheFooter from "../components/TheFooter.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, follow" />
-    <link rel="canonical" href={canonicalUrl} />
-    <meta http-equiv="refresh" content={`0;url=${defaultPath}`} />
-    <title>Redirecting to {defaultPath}</title>
-  </head>
-  <body>
-    <p>Redirecting to <a href={defaultPath}>{defaultPath}</a>.</p>
-  </body>
-</html>
+<Layout>
+  <TheNavbar />
+  <main id="main-content">
+    <HeroSection />
+    <GesturesSection />
+    <HowItWorksSection />
+    <PerformanceSection />
+    <PrivacySection />
+    <DownloadSection />
+  </main>
+  <TheFooter />
+</Layout>

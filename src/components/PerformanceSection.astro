@@ -1,0 +1,175 @@
+---
+import ZapIcon from "./icons/ZapIcon.astro";
+import MemoryStickIcon from "./icons/MemoryStickIcon.astro";
+import CpuIcon from "./icons/CpuIcon.astro";
+import BatteryChargingIcon from "./icons/BatteryChargingIcon.astro";
+
+const stats = [
+  {
+    icon: ZapIcon,
+    value: "<1 ms",
+    label: "Event latency",
+    description:
+      "Gestures are dispatched through CGEventTap on the system event stream — there is no polling loop.",
+  },
+  {
+    icon: MemoryStickIcon,
+    value: "~15 MB",
+    label: "Memory footprint",
+    description:
+      "Native SwiftUI menu bar app with no embedded webview, no electron, no extra services.",
+  },
+  {
+    icon: CpuIcon,
+    value: "~0%",
+    label: "CPU idle",
+    description:
+      "Sleeps until the OS hands it a mouse event. No background workers, no scheduled timers.",
+  },
+  {
+    icon: BatteryChargingIcon,
+    value: "Negligible",
+    label: "Battery impact",
+    description:
+      "Event-driven design means BuenMouse contributes essentially nothing to Energy Impact on Activity Monitor.",
+  },
+];
+---
+
+<section id="performance" class="performance section">
+  <div class="container">
+    <div class="performance__header">
+      <span class="eyebrow">Runtime profile</span>
+      <h2 class="performance__title">
+        Built to <span class="text-gradient">disappear in the background</span>
+      </h2>
+      <p class="performance__description">
+        Numbers from a MacBook Pro M1, macOS Ventura 13.4. Your mileage will
+        vary — but the architecture means you're not paying for what you don't
+        use.
+      </p>
+    </div>
+
+    <div class="performance__grid">
+      {
+        stats.map((stat) => (
+          <article class="perf-card">
+            <div class="perf-card__icon">
+              <stat.icon size={20} />
+            </div>
+            <span class="perf-card__value">{stat.value}</span>
+            <span class="perf-card__label">{stat.label}</span>
+            <p class="perf-card__description">{stat.description}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="performance__note">
+      Measured on MacBook Pro M1, macOS Ventura 13.4. Universal binary —
+      Apple Silicon native, also runs under Rosetta on Intel.
+    </p>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .performance {
+    &__header {
+      max-width: 740px;
+      margin: 0 auto $spacing-3xl;
+      text-align: center;
+    }
+
+    &__title {
+      margin: $spacing-md 0;
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    &__description {
+      color: $neutral-400;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: $spacing-lg;
+    }
+
+    &__note {
+      margin-top: $spacing-xl;
+      text-align: center;
+      color: $neutral-500;
+      font-size: 0.85rem;
+    }
+  }
+
+  .perf-card {
+    display: grid;
+    gap: 0.4rem;
+    padding: $spacing-xl;
+    border-radius: $radius-2xl;
+    background: $bg-dark-secondary;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color $transition-base, transform $transition-base;
+
+    &:hover {
+      border-color: rgba(34, 211, 238, 0.22);
+      transform: translateY(-4px);
+    }
+
+    &__icon {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      color: $primary-300;
+      margin-bottom: 0.4rem;
+    }
+
+    &__value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1;
+      color: $neutral-50;
+      letter-spacing: -0.02em;
+    }
+
+    &__label {
+      color: $primary-300;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    &__description {
+      color: $neutral-400;
+      line-height: 1.55;
+      font-size: 0.88rem;
+      margin-top: 0.3rem;
+    }
+  }
+
+  @include below-lg {
+    .performance__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @include below-md {
+    .performance__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
