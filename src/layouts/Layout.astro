@@ -1,5 +1,6 @@
 ---
 import { useTranslations, defaultLang, type Language } from '../i18n';
+import { getLatestRelease } from '../lib/github';
 
 interface Props {
   lang?: Language;
@@ -28,6 +29,8 @@ const pageUrl = `${siteUrl}/${lang}/`;
 const localeCode = lang === 'es' ? 'es-ES' : 'en-US';
 const breadcrumbHomeName = lang === 'es' ? 'Inicio' : 'Home';
 const personName = "Steven Coaila Zaa";
+
+const latestRelease = await getLatestRelease();
 
 // Dynamic keywords based on language
 const keywords = lang === 'es'
@@ -89,7 +92,7 @@ const schemaOrg = {
       "author": { "@id": `${siteUrl}/#person` },
       "publisher": { "@id": `${siteUrl}/#organization` },
       "downloadUrl": "https://github.com/StevenACZ/BuenMouse/releases",
-      "softwareVersion": "1.0",
+      "softwareVersion": latestRelease.version,
       "license": "https://opensource.org/licenses/MIT",
       "aggregateRating": {
         "@type": "AggregateRating",
