@@ -1,0 +1,40 @@
+---
+// Stylized mouse silhouette inspired by SF Symbol `computermouse.fill`,
+// designed to host an animated scroll-wheel indicator (small dot/chevron)
+// positioned via CSS on the top quarter. Body is a rounded capsule, the
+// upper half has a faint vertical seam to suggest the two click zones.
+interface Props {
+  size?: number | string;
+  class?: string;
+  variant?: "default" | "filled-top";
+}
+const { size = 34, class: className, variant = "default" } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={(Number(size) || 34) * (50 / 34)}
+  viewBox="0 0 34 50"
+  fill="none"
+  class={className}
+  aria-hidden="true"
+>
+  <path
+    d="M17 1.2c-8.7 0-15.8 7.1-15.8 15.8v15.9C1.2 41.7 8.3 48.8 17 48.8s15.8-7.1 15.8-15.8V17C32.8 8.3 25.7 1.2 17 1.2Z"
+    fill="currentColor"
+    fill-opacity="0.32"
+  ></path>
+  <path
+    d="M17 1.2c-8.7 0-15.8 7.1-15.8 15.8v6.6h31.6V17C32.8 8.3 25.7 1.2 17 1.2Z"
+    fill="currentColor"
+    fill-opacity={variant === "filled-top" ? "0.55" : "0.42"}
+  ></path>
+  <path
+    d="M17 1.2v22.4"
+    stroke="currentColor"
+    stroke-opacity="0.55"
+    stroke-width="0.9"
+    stroke-linecap="round"
+  ></path>
+</svg>

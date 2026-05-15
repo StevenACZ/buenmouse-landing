@@ -1,9 +1,50 @@
 ---
-import MissionControlIcon from "./icons/MissionControlIcon.astro";
-import SpacesIcon from "./icons/SpacesIcon.astro";
-import ZoomInIcon from "./icons/ZoomInIcon.astro";
-import ScrollIcon from "./icons/ScrollIcon.astro";
-import MouseIcon from "./icons/MouseIcon.astro";
+const gestures = [
+  {
+    key: "mission",
+    accent: "purple",
+    accentHex: "#a855f7",
+    accentRgb: "168, 85, 247",
+    tag: "Middle Click → Mission Control",
+    subtitle: "Press the scroll wheel to open Mission Control",
+    title: "Open Mission Control instantly",
+    description:
+      "Press the scroll wheel anywhere on macOS and Mission Control fans out your windows. No keyboard shortcut, no hot corner.",
+  },
+  {
+    key: "spaces",
+    accent: "blue",
+    accentHex: "#3b82f6",
+    accentRgb: "59, 130, 246",
+    tag: "Middle Drag → Switch Spaces",
+    subtitle: "Hold the scroll wheel and drag horizontally",
+    title: "Glide between Spaces",
+    description:
+      "Hold the scroll wheel and drag horizontally. Cross the threshold and macOS slides to the next Space. Tunable distance, invertible direction.",
+  },
+  {
+    key: "zoom",
+    accent: "green",
+    accentHex: "#22c55e",
+    accentRgb: "34, 197, 94",
+    tag: "⌃ + Scroll → Zoom In / Out",
+    subtitle: "Hold Control and use the scroll wheel",
+    title: "Pinch-to-zoom, without pinching",
+    description:
+      "Hold Control and roll the wheel to zoom into any app that supports it. Same muscle memory as the trackpad pinch.",
+  },
+  {
+    key: "invert",
+    accent: "green",
+    accentHex: "#22c55e",
+    accentRgb: "34, 197, 94",
+    tag: "Invert Scroll → Natural Direction",
+    subtitle: "Reverse the mouse wheel scroll direction",
+    title: "Natural scrolling for any mouse wheel",
+    description:
+      "The wheel finally moves content like a trackpad — flip it back any time without rewiring the OS preference.",
+  },
+];
 ---
 
 <section id="gestures" class="gestures section">
@@ -11,144 +52,264 @@ import MouseIcon from "./icons/MouseIcon.astro";
     <div class="gestures__header">
       <span class="eyebrow">Four gestures</span>
       <h2 class="gestures__title">
-        Everything <span class="text-gradient">your trackpad does</span>,
-        straight from the mouse
+        Everything <span class="text-gradient">your trackpad does</span>, straight
+        from the mouse
       </h2>
       <p class="gestures__description">
-        Each gesture is its own toggle in the app. Turn them on, configure
-        them, and forget they're there — they feel like part of the system.
+        Each gesture is its own toggle in the app. Turn them on, configure them,
+        and forget they're there — they feel like part of the system.
       </p>
     </div>
 
     <div class="gestures__grid">
-      <article class="gesture-card gesture-card--mission">
-        <div class="gesture-card__head">
-          <div class="gesture-card__icon">
-            <MissionControlIcon size={22} />
-          </div>
-          <span class="gesture-card__status">
-            <span class="gesture-card__status-dot"></span>
-            On
-          </span>
-        </div>
-        <span class="gesture-card__tag">Middle Click → Mission Control</span>
-        <h3 class="gesture-card__title">Open Mission Control instantly</h3>
-        <p class="gesture-card__description">
-          Press the scroll wheel anywhere on macOS and Mission Control fans out
-          your windows. No keyboard shortcut, no hot corner.
-        </p>
-        <div class="gesture-card__preview gesture-card__preview--ripple">
-          <div class="ripple-mouse">
-            <MouseIcon size={28} />
-            <span class="ripple-mouse__dot"></span>
-          </div>
-          <span class="ripple ripple--1"></span>
-          <span class="ripple ripple--2"></span>
-          <span class="ripple ripple--3"></span>
-        </div>
-      </article>
+      {
+        gestures.map((g) => (
+          <article
+            class={`gesture-card gesture-card--${g.key}`}
+            style={`--accent: ${g.accentHex}; --accent-rgb: ${g.accentRgb};`}
+          >
+            <div class="gesture-card__head">
+              <span class="gesture-card__title-block">
+                <span class="gesture-card__tag">{g.tag}</span>
+                <span class="gesture-card__subtitle">{g.subtitle}</span>
+              </span>
+              <span class="gesture-card__status">
+                <span class="gesture-card__status-dot" />
+                On
+              </span>
+            </div>
 
-      <article class="gesture-card gesture-card--spaces">
-        <div class="gesture-card__head">
-          <div class="gesture-card__icon">
-            <SpacesIcon size={22} />
-          </div>
-          <span class="gesture-card__status">
-            <span class="gesture-card__status-dot"></span>
-            On
-          </span>
-        </div>
-        <span class="gesture-card__tag">Middle Drag → Switch Spaces</span>
-        <h3 class="gesture-card__title">Glide between Spaces</h3>
-        <p class="gesture-card__description">
-          Hold the scroll wheel and drag horizontally. Cross the threshold and
-          macOS slides to the next Space. Tunable distance, invertible
-          direction.
-        </p>
-        <div class="gesture-card__preview gesture-card__preview--spaces">
-          <div class="spaces-track">
-            <div class="spaces-track__card spaces-track__card--active"></div>
-            <div class="spaces-track__card"></div>
-            <div class="spaces-track__cursor">
-              <MouseIcon size={20} />
-            </div>
-          </div>
-          <div class="spaces-config">
-            <div class="spaces-config__row">
-              <span class="spaces-config__label">Drag distance</span>
-              <span class="spaces-config__value">100 px</span>
-            </div>
-            <div class="spaces-config__slider">
-              <span class="spaces-config__slider-fill"></span>
-              <span class="spaces-config__slider-knob"></span>
-            </div>
-            <div class="spaces-config__row spaces-config__row--actions">
-              <span class="spaces-config__chip">Invert</span>
-              <span class="spaces-config__hint">50 – 250 px</span>
-            </div>
-          </div>
-        </div>
-      </article>
+            <div class={`preview preview--${g.key}`} aria-hidden="true">
+              {g.key === "mission" && (
+                <>
+                  <div class="stage stage--mission">
+                    <div class="mouse">
+                      <svg viewBox="0 0 34 50" class="mouse__body">
+                        <path d="M17 1.2c-8.7 0-15.8 7.1-15.8 15.8v15.9C1.2 41.7 8.3 48.8 17 48.8s15.8-7.1 15.8-15.8V17C32.8 8.3 25.7 1.2 17 1.2Z" />
+                      </svg>
+                      <span class="mouse__ripple" />
+                      <span class="mouse__dot" />
+                    </div>
+                    <span class="arrow arrow--right">
+                      <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path
+                          d="M5 12h14m-7-7 7 7-7 7"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <div class="mission-glyph">
+                      <span class="mission-glyph__left" />
+                      <span class="mission-glyph__right">
+                        <span class="mission-glyph__tile" />
+                        <span class="mission-glyph__tile" />
+                      </span>
+                    </div>
+                  </div>
+                </>
+              )}
 
-      <article class="gesture-card gesture-card--zoom">
-        <div class="gesture-card__head">
-          <div class="gesture-card__icon">
-            <ZoomInIcon size={22} />
-          </div>
-          <span class="gesture-card__status">
-            <span class="gesture-card__status-dot"></span>
-            On
-          </span>
-        </div>
-        <span class="gesture-card__tag">⌃ + Scroll → Zoom In / Out</span>
-        <h3 class="gesture-card__title">Pinch-to-zoom, without pinching</h3>
-        <p class="gesture-card__description">
-          Hold Control and roll the wheel to zoom into any app that supports
-          it. Same muscle memory as the trackpad pinch.
-        </p>
-        <div class="gesture-card__preview gesture-card__preview--zoom">
-          <kbd class="zoom-key">⌃</kbd>
-          <span class="zoom-plus">+</span>
-          <div class="zoom-wheel">
-            <MouseIcon size={24} />
-            <span class="zoom-wheel__pulse"></span>
-          </div>
-          <span class="zoom-arrow">→</span>
-          <div class="zoom-target">
-            <ZoomInIcon size={28} />
-          </div>
-        </div>
-      </article>
+              {g.key === "spaces" && (
+                <div class="stage stage--spaces">
+                  <div class="spaces-mouse-row">
+                    <span class="arrow arrow--left">
+                      <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path
+                          d="M19 12H5m7-7-7 7 7 7"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <div class="mouse mouse--drift">
+                      <svg viewBox="0 0 34 50" class="mouse__body">
+                        <path d="M17 1.2c-8.7 0-15.8 7.1-15.8 15.8v15.9C1.2 41.7 8.3 48.8 17 48.8s15.8-7.1 15.8-15.8V17C32.8 8.3 25.7 1.2 17 1.2Z" />
+                      </svg>
+                      <span class="mouse__dot mouse__dot--static" />
+                    </div>
+                    <span class="arrow arrow--right">
+                      <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path
+                          d="M5 12h14m-7-7 7 7-7 7"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="spaces-slots">
+                    <span class="spaces-slot" />
+                    <span class="spaces-slot" />
+                    <span class="spaces-slots__filled" />
+                  </div>
+                </div>
+              )}
 
-      <article class="gesture-card gesture-card--invert">
-        <div class="gesture-card__head">
-          <div class="gesture-card__icon">
-            <ScrollIcon size={22} />
-          </div>
-          <span class="gesture-card__status">
-            <span class="gesture-card__status-dot"></span>
-            On
-          </span>
-        </div>
-        <span class="gesture-card__tag">Invert Scroll → Natural Direction</span>
-        <h3 class="gesture-card__title">
-          Natural scrolling for any mouse wheel
-        </h3>
-        <p class="gesture-card__description">
-          The wheel finally moves content like a trackpad — flip it back any
-          time without rewiring the OS preference.
-        </p>
-        <div class="gesture-card__preview gesture-card__preview--invert">
-          <div class="invert-stage">
-            <span class="invert-arrow invert-arrow--up">▲</span>
-            <div class="invert-mouse"><MouseIcon size={26} /></div>
-            <span class="invert-arrow invert-arrow--down">▼</span>
-          </div>
-          <div class="invert-doc">
-            <span></span><span></span><span></span><span></span>
-          </div>
-        </div>
-      </article>
+              {g.key === "zoom" && (
+                <div class="stage stage--zoom">
+                  <span class="kbd-cap">⌃</span>
+                  <span class="plus">+</span>
+                  <div class="mouse">
+                    <svg viewBox="0 0 34 50" class="mouse__body">
+                      <path d="M17 1.2c-8.7 0-15.8 7.1-15.8 15.8v15.9C1.2 41.7 8.3 48.8 17 48.8s15.8-7.1 15.8-15.8V17C32.8 8.3 25.7 1.2 17 1.2Z" />
+                    </svg>
+                    <span class="mouse__chevrons mouse__chevrons--zoom">
+                      <svg viewBox="0 0 24 24" width="14" height="14">
+                        <path
+                          d="m18 15-6-6-6 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <svg viewBox="0 0 24 24" width="14" height="14">
+                        <path
+                          d="m6 9 6 6 6-6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <span class="arrow arrow--right">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                      <path
+                        d="M5 12h14m-7-7 7 7-7 7"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <div class="magnifier">
+                    <svg viewBox="0 0 24 24" class="magnifier__plus" width="32" height="32">
+                      <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.4" />
+                      <path
+                        d="m21 21-4.3-4.3M8 11h6M11 8v6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <svg viewBox="0 0 24 24" class="magnifier__minus" width="32" height="32">
+                      <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.4" />
+                      <path
+                        d="m21 21-4.3-4.3M8 11h6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              )}
+
+              {g.key === "invert" && (
+                <div class="stage stage--invert">
+                  <div class="mouse">
+                    <svg viewBox="0 0 34 50" class="mouse__body">
+                      <path d="M17 1.2c-8.7 0-15.8 7.1-15.8 15.8v15.9C1.2 41.7 8.3 48.8 17 48.8s15.8-7.1 15.8-15.8V17C32.8 8.3 25.7 1.2 17 1.2Z" />
+                    </svg>
+                    <span class="mouse__chevrons mouse__chevrons--invert">
+                      <svg viewBox="0 0 24 24" width="14" height="14">
+                        <path
+                          d="m18 15-6-6-6 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <svg viewBox="0 0 24 24" width="14" height="14">
+                        <path
+                          d="m6 9 6 6 6-6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <span class="arrow arrow--right">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                      <path
+                        d="M5 12h14m-7-7 7 7-7 7"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <div class="doc-icon">
+                    <svg viewBox="0 0 24 24" width="30" height="30">
+                      <rect x="3" y="3" width="18" height="18" rx="3" fill="currentColor" />
+                      <path
+                        d="M7.5 8.5h9M7.5 12h9M7.5 15.5h5"
+                        stroke="rgba(255,255,255,0.85)"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <h3 class="gesture-card__title">{g.title}</h3>
+            <p class="gesture-card__description">{g.description}</p>
+
+            {g.key === "spaces" && (
+              <div class="spaces-controls">
+                <div class="spaces-controls__row">
+                  <span class="spaces-controls__label">Drag distance to switch</span>
+                  <span class="spaces-controls__value">100 px</span>
+                  <span class="spaces-controls__invert">
+                    <svg viewBox="0 0 24 24" width="12" height="12">
+                      <path
+                        d="M3 7h13m0 0-3-3m3 3-3 3M21 17H8m0 0 3 3m-3-3 3-3"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    Invert
+                  </span>
+                </div>
+                <div class="spaces-controls__slider">
+                  <span class="spaces-controls__slider-fill" />
+                  <span class="spaces-controls__slider-knob" />
+                </div>
+              </div>
+            )}
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -186,7 +347,7 @@ import MouseIcon from "./icons/MouseIcon.astro";
 
   .gesture-card {
     display: grid;
-    gap: 0.6rem;
+    gap: 0.7rem;
     padding: $spacing-xl;
     border-radius: $radius-2xl;
     background: $bg-dark-secondary;
@@ -196,67 +357,63 @@ import MouseIcon from "./icons/MouseIcon.astro";
       transform $transition-base,
       box-shadow $transition-base;
     position: relative;
-    overflow: hidden;
 
     &:hover {
-      border-color: rgba(34, 211, 238, 0.22);
+      border-color: rgba(var(--accent-rgb), 0.32);
       transform: translateY(-4px);
       box-shadow: $shadow-lg;
     }
 
     &__head {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 0.4rem;
+      gap: 0.75rem;
+      margin-bottom: 0.2rem;
     }
 
-    &__icon {
-      width: 44px;
-      height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      background: rgba(34, 211, 238, 0.1);
-      border: 1px solid rgba(34, 211, 238, 0.22);
-      color: $primary-300;
+    &__title-block {
+      display: grid;
+      gap: 0.2rem;
+    }
+
+    &__tag {
+      color: $neutral-50;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: -0.005em;
+    }
+
+    &__subtitle {
+      color: $neutral-400;
+      font-size: 0.85rem;
     }
 
     &__status {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      padding: 0.25rem 0.65rem;
+      padding: 0.28rem 0.7rem;
       border-radius: 999px;
-      background: rgba(34, 197, 94, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      color: $accent-green;
-      font-size: 0.72rem;
+      background: rgba(var(--accent-rgb), 0.16);
+      color: var(--accent);
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
     }
 
     &__status-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: $accent-green;
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    &__tag {
-      color: $neutral-500;
-      font-family: $font-mono;
-      font-size: 0.78rem;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      font-weight: 600;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.7);
     }
 
     &__title {
-      font-size: 1.25rem;
+      margin-top: 0.6rem;
+      font-size: 1.18rem;
       line-height: 1.3;
       color: $neutral-50;
       font-weight: 700;
@@ -266,318 +423,579 @@ import MouseIcon from "./icons/MouseIcon.astro";
     &__description {
       color: $neutral-400;
       line-height: 1.65;
-      font-size: 0.95rem;
-    }
-
-    &__preview {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: $spacing-md;
-      padding: $spacing-lg;
-      min-height: 160px;
-      border-radius: $radius-lg;
-      background:
-        radial-gradient(
-          ellipse at center,
-          rgba(34, 211, 238, 0.08) 0%,
-          transparent 70%
-        ),
-        rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      overflow: hidden;
+      font-size: 0.94rem;
     }
   }
 
-  // Mission Control preview — ripples around the mouse
-  .ripple-mouse {
+  // ============================================
+  // Preview frame — accent-tinted background
+  // ============================================
+  .preview {
     position: relative;
-    z-index: 2;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    color: $primary-200;
-    background: rgba(34, 211, 238, 0.1);
-    border: 1px solid rgba(34, 211, 238, 0.32);
+    margin-top: 0.3rem;
+    padding: $spacing-md $spacing-lg;
+    min-height: 130px;
+    border-radius: $radius-lg;
+    background: rgba(var(--accent-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    overflow: hidden;
+  }
+
+  .stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+    width: 100%;
+  }
+
+  // ============================================
+  // Shared mouse glyph
+  // ============================================
+  .mouse {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 34px;
+    height: 50px;
+    color: $neutral-400;
+
+    &__body {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+      fill-opacity: 0.55;
+    }
 
     &__dot {
       position: absolute;
-      top: 12px;
+      top: 11px;
       left: 50%;
       transform: translateX(-50%);
-      width: 8px;
-      height: 4px;
-      border-radius: 2px;
-      background: $primary-300;
-      animation: pulse 1.8s ease-in-out infinite;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.92;
+
+      &--static {
+        animation: none;
+      }
+    }
+
+    &__chevrons {
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--accent);
+      line-height: 0;
+
+      svg {
+        display: block;
+      }
     }
   }
 
-  .ripple {
+  .arrow {
+    color: var(--accent);
+    opacity: 0.75;
+  }
+
+  // ============================================
+  // 1) MISSION CONTROL — purple
+  //    ripple from dot + glyph spreads on each click
+  // ============================================
+  .stage--mission .mouse__ripple {
     position: absolute;
-    top: 50%;
+    top: 11px;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid rgba(34, 211, 238, 0.35);
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    animation: ripple-out 2.4s ease-out infinite;
-    width: 80px;
-    height: 80px;
-
-    &--1 {
-      animation-delay: 0s;
-    }
-    &--2 {
-      animation-delay: 0.8s;
-    }
-    &--3 {
-      animation-delay: 1.6s;
-    }
+    border: 1.5px solid var(--accent);
+    transform-origin: center;
+    animation: mc-ripple 1.6s ease-out infinite;
   }
 
-  @keyframes ripple-out {
-    0% {
-      opacity: 0.7;
-      transform: translate(-50%, -50%) scale(0.5);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(1.7);
-    }
+  .stage--mission .mouse__dot {
+    animation: mc-pulse 1.6s ease-in-out infinite;
   }
 
-  // Spaces preview — two desktops + drifting cursor + slider
-  .gesture-card--spaces .gesture-card__preview {
-    flex-direction: column;
-    gap: $spacing-md;
-    align-items: stretch;
-    padding: $spacing-md;
-  }
-
-  .spaces-track {
+  .mission-glyph {
     position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-    height: 70px;
-
-    &__card {
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.03);
-
-      &--active {
-        background: rgba(34, 211, 238, 0.12);
-        border-color: rgba(34, 211, 238, 0.4);
-      }
-    }
-
-    &__cursor {
-      position: absolute;
-      top: 50%;
-      left: 28%;
-      transform: translateY(-50%);
-      color: $primary-200;
-      animation: drift-x 2.4s ease-in-out infinite;
-    }
-  }
-
-  .spaces-config {
-    display: grid;
-    gap: 0.45rem;
-    padding: 0.7rem 0.85rem;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    font-size: 0.78rem;
-
-    &__row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: $neutral-300;
-
-      &--actions {
-        color: $neutral-500;
-      }
-    }
-
-    &__label {
-      font-weight: 600;
-    }
-
-    &__value {
-      font-family: $font-mono;
-      color: $neutral-100;
-    }
-
-    &__slider {
-      position: relative;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    &__slider-fill {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 35%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, $primary-400, $primary-500);
-    }
-
-    &__slider-knob {
-      position: absolute;
-      top: 50%;
-      left: 35%;
-      transform: translate(-50%, -50%);
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: $neutral-50;
-      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.3);
-    }
-
-    &__chip {
-      padding: 0.25rem 0.55rem;
-      border-radius: 6px;
-      background: rgba(59, 130, 246, 0.12);
-      color: $accent-blue;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      font-size: 0.7rem;
-    }
-
-    &__hint {
-      font-family: $font-mono;
-    }
-  }
-
-  // Zoom preview
-  .gesture-card--zoom .gesture-card__preview {
-    gap: 0.85rem;
-  }
-
-  .zoom-key {
-    min-width: 2.1rem;
-    height: 2.1rem;
-    font-size: 0.95rem;
-  }
-
-  .zoom-plus {
-    color: $neutral-500;
-    font-weight: 700;
-  }
-
-  .zoom-wheel {
-    position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    color: $primary-200;
-    background: rgba(34, 211, 238, 0.08);
-    border: 1px solid rgba(34, 211, 238, 0.25);
-
-    &__pulse {
-      position: absolute;
-      top: 6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 12px;
-      border-radius: 3px;
-      background: $primary-300;
-      animation: scroll-y 1.4s ease-in-out infinite;
-    }
+    width: 38px;
+    height: 30px;
+    color: var(--accent);
   }
 
-  .zoom-arrow {
-    color: $neutral-500;
+  .mission-glyph__left {
+    display: block;
+    width: 13px;
+    height: 28px;
+    border-radius: 3px;
+    background: var(--accent);
+    animation: mc-glyph-left 3.2s ease-in-out infinite;
   }
 
-  .zoom-target {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    color: $primary-200;
-    background: rgba(34, 211, 238, 0.1);
-    border: 1px solid rgba(34, 211, 238, 0.3);
-  }
-
-  // Invert scroll preview
-  .gesture-card--invert .gesture-card__preview {
-    gap: $spacing-lg;
-    padding: $spacing-lg;
-  }
-
-  .invert-stage {
+  .mission-glyph__right {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
+    margin-left: 4px;
+    animation: mc-glyph-right 3.2s ease-in-out infinite;
   }
 
-  .invert-arrow {
-    font-size: 0.95rem;
-    line-height: 1;
+  .mission-glyph__tile {
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    background: var(--accent);
+    animation: mc-glyph-tile 3.2s ease-in-out infinite;
 
-    &--up {
-      color: $primary-300;
-      animation: scroll-y 1.6s ease-in-out infinite;
-    }
-
-    &--down {
-      color: $neutral-600;
+    & + & {
+      margin-top: 5px;
     }
   }
 
-  .invert-mouse {
+  @keyframes mc-ripple {
+    0% {
+      width: 7px;
+      height: 7px;
+      opacity: 0;
+    }
+    8% {
+      opacity: 0.9;
+    }
+    60% {
+      width: 36px;
+      height: 36px;
+      opacity: 0;
+    }
+    100% {
+      width: 36px;
+      height: 36px;
+      opacity: 0;
+    }
+  }
+
+  @keyframes mc-pulse {
+    0%,
+    100% {
+      transform: translateX(-50%) scale(1);
+    }
+    10% {
+      transform: translateX(-50%) scale(1.55);
+    }
+    25% {
+      transform: translateX(-50%) scale(1);
+    }
+  }
+
+  @keyframes mc-glyph-left {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-2px);
+    }
+  }
+
+  @keyframes mc-glyph-right {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(2px);
+    }
+  }
+
+  @keyframes mc-glyph-tile {
+    0%,
+    100% {
+      margin-top: 0;
+    }
+    50% {
+      margin-top: 0;
+    }
+  }
+  // Tile gap (the second tile uses margin-top via & + & rule) is what we
+  // animate. The above keyframe is a placeholder for additional polish if
+  // needed — the visible "spread" comes from the parent column gap below.
+
+  .mission-glyph__right .mission-glyph__tile + .mission-glyph__tile {
+    animation:
+      mc-tile-gap 3.2s ease-in-out infinite;
+  }
+
+  @keyframes mc-tile-gap {
+    0%,
+    100% {
+      margin-top: 5px;
+    }
+    50% {
+      margin-top: 11px;
+    }
+  }
+
+  // ============================================
+  // 2) SWITCH SPACES — blue
+  //    mouse drifts L↔R, arrows alternate brightness,
+  //    filled square slides between two outlined slots
+  // ============================================
+  .stage--spaces {
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .spaces-mouse-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .mouse--drift {
+    animation: spaces-mouse-drift 3.2s ease-in-out infinite;
+  }
+
+  .stage--spaces .arrow--left {
+    animation: spaces-arrow-left 3.2s ease-in-out infinite;
+  }
+
+  .stage--spaces .arrow--right {
+    animation: spaces-arrow-right 3.2s ease-in-out infinite;
+  }
+
+  .spaces-slots {
+    position: relative;
+    display: flex;
+    gap: 6px;
+  }
+
+  .spaces-slot {
+    display: block;
+    width: 18px;
+    height: 22px;
+    border-radius: 3px;
+    border: 1.4px solid rgba(var(--accent-rgb), 0.45);
+    background: transparent;
+  }
+
+  .spaces-slots__filled {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 22px;
+    border-radius: 3px;
+    background: var(--accent);
+    animation: spaces-fill-slide 3.2s ease-in-out infinite;
+  }
+
+  @keyframes spaces-mouse-drift {
+    0%,
+    100% {
+      transform: translateX(-8px) rotate(-3deg);
+    }
+    50% {
+      transform: translateX(8px) rotate(3deg);
+    }
+  }
+
+  @keyframes spaces-arrow-left {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+    50% {
+      opacity: 0.25;
+      transform: scale(0.9);
+    }
+  }
+
+  @keyframes spaces-arrow-right {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+  }
+
+  @keyframes spaces-fill-slide {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(24px); // 18 width + 6 gap
+    }
+  }
+
+  // ============================================
+  // 3) SCROLL ZOOM — green
+  //    kbd[^] + mouse-with-chevron-pulse + arrow + magnifier alternates
+  // ============================================
+  .stage--zoom {
+    gap: 0.85rem;
+  }
+
+  .kbd-cap {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    color: $primary-200;
-    background: rgba(34, 211, 238, 0.08);
-    border: 1px solid rgba(34, 211, 238, 0.25);
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: $neutral-100;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1;
   }
 
-  .invert-doc {
+  .plus {
+    color: $neutral-400;
+    font-weight: 700;
+  }
+
+  .stage--zoom .mouse__chevrons svg:first-child {
+    animation: chevron-up-zoom 1.6s ease-in-out infinite;
+  }
+
+  .stage--zoom .mouse__chevrons svg:last-child {
+    animation: chevron-down-zoom 1.6s ease-in-out infinite;
+  }
+
+  .magnifier {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    color: var(--accent);
+
+    svg {
+      position: absolute;
+      inset: 0;
+    }
+
+    &__plus {
+      animation: magnifier-plus 1.6s ease-in-out infinite;
+    }
+
+    &__minus {
+      animation: magnifier-minus 1.6s ease-in-out infinite;
+    }
+  }
+
+  @keyframes chevron-up-zoom {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1.35) translateY(-2px);
+    }
+    50% {
+      opacity: 0.18;
+      transform: scale(0.7) translateY(1px);
+    }
+  }
+
+  @keyframes chevron-down-zoom {
+    0%,
+    100% {
+      opacity: 0.18;
+      transform: scale(0.7) translateY(-1px);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.35) translateY(2px);
+    }
+  }
+
+  @keyframes magnifier-plus {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1.35) rotate(-6deg);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(0.75) rotate(6deg);
+    }
+  }
+
+  @keyframes magnifier-minus {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(0.75) rotate(-6deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.35) rotate(6deg);
+    }
+  }
+
+  // ============================================
+  // 4) INVERT SCROLL — green
+  //    mouse chevrons opposite to zoom + document drifts vertically
+  // ============================================
+  .stage--invert {
+    gap: 1.4rem;
+  }
+
+  .stage--invert .mouse__chevrons svg:first-child {
+    animation: chevron-up-invert 1.6s ease-in-out infinite;
+  }
+
+  .stage--invert .mouse__chevrons svg:last-child {
+    animation: chevron-down-invert 1.6s ease-in-out infinite;
+  }
+
+  .doc-icon {
+    display: inline-flex;
+    color: var(--accent);
+    animation: doc-drift 1.6s ease-in-out infinite;
+  }
+
+  @keyframes chevron-up-invert {
+    0%,
+    100% {
+      opacity: 0.18;
+      transform: scale(0.7) translateY(1px);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.35) translateY(-2px);
+    }
+  }
+
+  @keyframes chevron-down-invert {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1.35) translateY(2px);
+    }
+    50% {
+      opacity: 0.18;
+      transform: scale(0.7) translateY(-1px);
+    }
+  }
+
+  @keyframes doc-drift {
+    0%,
+    100% {
+      transform: translateY(-7px) scale(0.95);
+    }
+    50% {
+      transform: translateY(7px) scale(1.05);
+    }
+  }
+
+  // ============================================
+  // Spaces sub-controls (slider + Invert chip)
+  //   match the look of v2.1.0's drag-distance row
+  // ============================================
+  .spaces-controls {
+    margin-top: 0.25rem;
     display: grid;
-    gap: 0.4rem;
-    width: 100px;
+    gap: 0.55rem;
+  }
 
-    span {
-      height: 4px;
-      border-radius: 2px;
-      background: rgba(255, 255, 255, 0.12);
+  .spaces-controls__row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.82rem;
+  }
 
-      &:nth-child(1) {
-        width: 70%;
-      }
-      &:nth-child(2) {
-        width: 100%;
-      }
-      &:nth-child(3) {
-        width: 50%;
-      }
-      &:nth-child(4) {
-        width: 80%;
-      }
+  .spaces-controls__label {
+    color: $neutral-300;
+    flex: 1;
+  }
+
+  .spaces-controls__value {
+    color: $neutral-100;
+    font-family: $font-mono;
+    font-weight: 600;
+  }
+
+  .spaces-controls__invert {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.65rem;
+    border-radius: 7px;
+    background: rgba(var(--accent-rgb), 0.14);
+    border: 1px solid rgba(var(--accent-rgb), 0.3);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.78rem;
+  }
+
+  .spaces-controls__slider {
+    position: relative;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .spaces-controls__slider-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 35%;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .spaces-controls__slider-knob {
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: $neutral-50;
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.32);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mouse__ripple,
+    .mouse__dot,
+    .mouse--drift,
+    .stage--spaces .arrow--left,
+    .stage--spaces .arrow--right,
+    .spaces-slots__filled,
+    .stage--zoom .mouse__chevrons svg,
+    .stage--invert .mouse__chevrons svg,
+    .magnifier__plus,
+    .magnifier__minus,
+    .doc-icon,
+    .mission-glyph__left,
+    .mission-glyph__right,
+    .mission-glyph__right .mission-glyph__tile + .mission-glyph__tile {
+      animation: none !important;
     }
   }
 
