@@ -1,5 +1,9 @@
 ---
 import { useTranslations, defaultLang, type Language } from '../i18n';
+import BanIcon from './icons/BanIcon.astro';
+import LaptopIcon from './icons/LaptopIcon.astro';
+import UnlockIcon from './icons/UnlockIcon.astro';
+import LockIcon from './icons/LockIcon.astro';
 
 interface Props {
   lang?: Language;
@@ -9,10 +13,10 @@ const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 
 const privacyFeatures = [
-  { icon: '🚫', titleKey: 'privacy.zeroTelemetry.title' as const, descriptionKey: 'privacy.zeroTelemetry.description' as const },
-  { icon: '💻', titleKey: 'privacy.localProcessing.title' as const, descriptionKey: 'privacy.localProcessing.description' as const },
-  { icon: '🔓', titleKey: 'privacy.openSource.title' as const, descriptionKey: 'privacy.openSource.description' as const },
-  { icon: '🔐', titleKey: 'privacy.minimalPermissions.title' as const, descriptionKey: 'privacy.minimalPermissions.description' as const }
+  { Icon: BanIcon, titleKey: 'privacy.zeroTelemetry.title' as const, descriptionKey: 'privacy.zeroTelemetry.description' as const },
+  { Icon: LaptopIcon, titleKey: 'privacy.localProcessing.title' as const, descriptionKey: 'privacy.localProcessing.description' as const },
+  { Icon: UnlockIcon, titleKey: 'privacy.openSource.title' as const, descriptionKey: 'privacy.openSource.description' as const },
+  { Icon: LockIcon, titleKey: 'privacy.minimalPermissions.title' as const, descriptionKey: 'privacy.minimalPermissions.description' as const }
 ];
 ---
 
@@ -30,12 +34,14 @@ const privacyFeatures = [
         </p>
         
         <ul class="privacy__list">
-          {privacyFeatures.map(feature => (
+          {privacyFeatures.map(({ Icon, titleKey, descriptionKey }) => (
             <li class="privacy__item">
-              <span class="privacy__icon">{feature.icon}</span>
+              <span class="privacy__icon">
+                <Icon size={28} strokeWidth={1.75} />
+              </span>
               <div class="privacy__item-content">
-                <h3 class="privacy__item-title">{t(feature.titleKey)}</h3>
-                <p class="privacy__item-description">{t(feature.descriptionKey)}</p>
+                <h3 class="privacy__item-title">{t(titleKey)}</h3>
+                <p class="privacy__item-description">{t(descriptionKey)}</p>
               </div>
             </li>
           ))}
@@ -70,7 +76,7 @@ const privacyFeatures = [
 .privacy__list { display: flex; flex-direction: column; gap: var(--space-4); }
 .privacy__item { display: flex; gap: var(--space-4); padding: var(--space-4); background: var(--color-bg-glass); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-lg); transition: all var(--transition-fast); }
 .privacy__item:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
-.privacy__icon { font-size: var(--text-2xl); flex-shrink: 0; }
+.privacy__icon { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; color: var(--color-primary); }
 .privacy__item-title { font-size: var(--text-base); font-weight: 600; color: var(--color-text-primary); margin-bottom: var(--space-1); }
 .privacy__item-description { font-size: var(--text-sm); color: var(--color-text-secondary); }
 .privacy__visual { display: flex; justify-content: center; align-items: center; }
