@@ -1,13 +1,13 @@
 {
   "name": "BuenMouse",
   "short_name": "BuenMouse",
-  "description": "Revolutionize your mouse and trackpad experience on macOS",
-  "id": "/en/",
-  "start_url": "/en/",
+  "description": "Trackpad gestures for your mouse on macOS. Free, open source menu bar app.",
+  "id": "/",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0A0A0F",
-  "theme_color": "#22D3EE",
+  "background_color": "#08090c",
+  "theme_color": "#22d3ee",
   "icons": [
     {
       "src": "/icon-32.png",
@@ -37,6 +37,6 @@
     }
   ],
   "categories": ["productivity", "utilities"],
-  "lang": "en-US",
+  "lang": "en",
   "dir": "ltr"
 }

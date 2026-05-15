@@ -1,0 +1,80 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GitHubIcon from "../components/icons/GitHubIcon.astro";
+import DownloadIcon from "../components/icons/DownloadIcon.astro";
+---
+
+<Layout
+  title="Page not found — BuenMouse"
+  description="The page you were looking for does not exist."
+>
+  <main class="error">
+    <div class="container error__inner">
+      <span class="error__code">404</span>
+      <h1 class="error__title">This trail leads nowhere</h1>
+      <p class="error__description">
+        The page you're after doesn't exist on mouse.stevenacz.com. Head back
+        to the homepage or grab BuenMouse from GitHub directly.
+      </p>
+      <div class="error__actions">
+        <a href="/" class="btn btn-primary btn-lg">
+          <DownloadIcon size={18} />
+          Back home
+        </a>
+        <a
+          href="https://github.com/StevenACZ/BuenMouse"
+          class="btn btn-secondary btn-lg"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <GitHubIcon size={18} />
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+
+  .error {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 0 4rem;
+
+    &__inner {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    &__code {
+      display: inline-block;
+      font-size: 4rem;
+      font-weight: 800;
+      color: $primary-300;
+      letter-spacing: -0.04em;
+    }
+
+    &__title {
+      margin: $spacing-md 0;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      letter-spacing: -0.02em;
+    }
+
+    &__description {
+      color: $neutral-400;
+      line-height: 1.7;
+      margin-bottom: $spacing-xl;
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: $spacing-md;
+    }
+  }
+</style>
