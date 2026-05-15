@@ -34,16 +34,16 @@ Public Astro landing for BuenMouse (`https://mouse.stevenacz.com`). Keep it stat
 ## Commands
 
 ```bash
-npm install
-npm run dev
-npm run format
-npm run format:check
-npm run typecheck
-npm run build
-npm run preview
+bun install
+bun run dev
+bun run format
+bun run format:check
+bun run typecheck
+bun run build
+bun run preview
 ```
 
-Do not commit `.astro/`, `dist/`, `node_modules/`, local docs, or env files.
+The repo tracks `bun.lock` — do not introduce `package-lock.json` or `yarn.lock`. Do not commit `.astro/`, `dist/`, `node_modules/`, local docs, or env files.
 
 ## Product Copy
 
@@ -82,9 +82,9 @@ Keep copy aligned with the public app positioning (v2.1):
 Run before finishing any task:
 
 ```bash
-npm run format:check
-npm run typecheck
-npm run build
+bun run format:check
+bun run typecheck
+bun run build
 ```
 
 For SEO work, inspect `dist/index.html` for: `application/ld+json`, description + OG, CSP meta, manifest, sitemap-index, real OG image.
