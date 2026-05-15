@@ -1,0 +1,295 @@
+---
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import { fetchLatestVersion } from "../data/github";
+
+const version = (await fetchLatestVersion()).replace(/^v/, "");
+const year = new Date().getFullYear();
+
+const productLinks = [
+  { href: "#gestures", label: "Gestures" },
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#performance", label: "Performance" },
+  { href: "#privacy", label: "Privacy" },
+];
+
+const projectLinks = [
+  {
+    href: "https://github.com/StevenACZ/BuenMouse",
+    label: "Source code",
+    external: true,
+  },
+  {
+    href: "https://github.com/StevenACZ/BuenMouse/releases",
+    label: "Releases",
+    external: true,
+  },
+  {
+    href: "https://github.com/StevenACZ/BuenMouse/issues",
+    label: "Report an issue",
+    external: true,
+  },
+  {
+    href: "https://github.com/StevenACZ/BuenMouse/blob/main/LICENSE",
+    label: "MIT license",
+    external: true,
+  },
+];
+
+const authorLinks = [
+  { href: "https://stevenacz.com", label: "stevenacz.com", external: true },
+  {
+    href: "https://github.com/StevenACZ",
+    label: "GitHub @StevenACZ",
+    external: true,
+  },
+];
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <div class="footer__brand-row">
+        <img
+          src="/icon-64.png"
+          alt=""
+          width="40"
+          height="40"
+          class="footer__logo"
+          loading="lazy"
+        />
+        <div>
+          <strong>BuenMouse</strong>
+          <span>v{version} · MIT licensed</span>
+        </div>
+      </div>
+      <p class="footer__tagline">
+        Trackpad gestures for your mouse on macOS. Made in the spare hours of
+        a fullstack dev who got tired of reaching for the trackpad.
+      </p>
+      <a
+        href="https://github.com/StevenACZ/BuenMouse"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer__github"
+      >
+        <GitHubIcon size={18} />
+        Star on GitHub
+      </a>
+    </div>
+
+    <div class="footer__columns">
+      <div class="footer__col">
+        <span class="footer__col-title">Product</span>
+        <ul>
+          {
+            productLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <span class="footer__col-title">Project</span>
+        <ul>
+          {
+            projectLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <span class="footer__col-title">Author</span>
+        <ul>
+          {
+            authorLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__strip">
+    <div class="container footer__strip-inner">
+      <span>© {year} Steven Coaila Zaa. Built with Astro.</span>
+      <span class="footer__legal">
+        Apple, macOS and Mission Control are trademarks of Apple Inc. BuenMouse
+        is an independent project not affiliated with Apple.
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .footer {
+    margin-top: $spacing-3xl;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.4));
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    &__inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 2fr);
+      gap: $spacing-3xl;
+      padding-top: $spacing-3xl;
+      padding-bottom: $spacing-2xl;
+    }
+
+    &__brand {
+      display: grid;
+      gap: $spacing-md;
+      align-content: start;
+    }
+
+    &__brand-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+
+      strong {
+        display: block;
+        font-size: 1.1rem;
+        color: $neutral-50;
+      }
+
+      span {
+        display: block;
+        color: $neutral-500;
+        font-size: 0.82rem;
+      }
+    }
+
+    &__logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+
+    &__tagline {
+      color: $neutral-400;
+      font-size: 0.92rem;
+      line-height: 1.65;
+      max-width: 320px;
+    }
+
+    &__github {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      width: max-content;
+      border-radius: $radius-md;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: $neutral-100;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: background $transition-fast, border-color $transition-fast;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(34, 211, 238, 0.32);
+        color: $primary-200;
+      }
+    }
+
+    &__columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: $spacing-xl;
+    }
+
+    &__col-title {
+      display: block;
+      margin-bottom: $spacing-sm;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: $neutral-500;
+    }
+
+    &__col ul {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    &__col a {
+      color: $neutral-300;
+      font-size: 0.92rem;
+      transition: color $transition-fast;
+
+      &:hover {
+        color: $neutral-50;
+      }
+    }
+
+    &__strip {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: $spacing-md 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    &__strip-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: $spacing-md;
+      color: $neutral-500;
+      font-size: 0.8rem;
+    }
+
+    &__legal {
+      max-width: 540px;
+      text-align: right;
+    }
+  }
+
+  @include below-lg {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: $spacing-2xl;
+    }
+
+    .footer__legal {
+      text-align: left;
+    }
+  }
+
+  @include below-md {
+    .footer__columns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer__strip-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
