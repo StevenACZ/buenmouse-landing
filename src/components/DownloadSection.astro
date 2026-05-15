@@ -1,0 +1,188 @@
+---
+import { fetchLatestVersion } from "../data/github";
+import DownloadIcon from "./icons/DownloadIcon.astro";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import ExternalLinkIcon from "./icons/ExternalLinkIcon.astro";
+
+const version = (await fetchLatestVersion()).replace(/^v/, "");
+const downloadUrl = "https://github.com/StevenACZ/BuenMouse/releases/latest";
+const releasesUrl = "https://github.com/StevenACZ/BuenMouse/releases";
+const repoUrl = "https://github.com/StevenACZ/BuenMouse";
+---
+
+<section id="download" class="download section">
+  <div class="container">
+    <div class="download__card">
+      <span class="eyebrow">Free · Open source</span>
+      <h2 class="download__title">
+        Try BuenMouse <span class="text-gradient">today</span>
+      </h2>
+      <p class="download__description">
+        One signed DMG, no account, no subscription. Updates land on GitHub
+        whenever there's something to ship.
+      </p>
+
+      <div class="download__actions">
+        <a
+          href={downloadUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-lg"
+        >
+          <DownloadIcon size={18} />
+          Download v{version}
+        </a>
+        <a
+          href={repoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary btn-lg"
+        >
+          <GitHubIcon size={18} />
+          Read the source
+        </a>
+      </div>
+
+      <div class="download__meta">
+        <span class="download__chip">macOS 13.0 Ventura+</span>
+        <span class="download__chip">Universal binary</span>
+        <span class="download__chip">MIT license</span>
+        <span class="download__chip">~3 MB</span>
+      </div>
+
+      <a
+        href={releasesUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="download__history"
+      >
+        See all releases
+        <ExternalLinkIcon size={14} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .download {
+    &__card {
+      position: relative;
+      padding: $spacing-3xl $spacing-2xl;
+      border-radius: 28px;
+      text-align: center;
+      background:
+        radial-gradient(
+          ellipse at top,
+          rgba(34, 211, 238, 0.18) 0%,
+          transparent 65%
+        ),
+        $bg-dark-secondary;
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(34, 211, 238, 0.08);
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+              transparent 0,
+              rgba(255, 255, 255, 0.025) 1px,
+              transparent 2px
+            )
+            repeat-y;
+        background-size: 56px 56px;
+        mask-image: radial-gradient(
+          circle at top,
+          rgba(0, 0, 0, 1),
+          transparent 70%
+        );
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+
+    &__title {
+      position: relative;
+      margin: $spacing-md 0;
+      font-size: clamp(2.2rem, 4.5vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+
+    &__description {
+      position: relative;
+      max-width: 620px;
+      margin: 0 auto $spacing-xl;
+      color: $neutral-300;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    &__actions {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: $spacing-md;
+      margin-bottom: $spacing-xl;
+    }
+
+    &__meta {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: $spacing-lg;
+    }
+
+    &__chip {
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: $neutral-300;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    &__history {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: $neutral-400;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-bottom: 1px dotted rgba(255, 255, 255, 0.18);
+      padding-bottom: 2px;
+      transition: color $transition-fast, border-color $transition-fast;
+
+      &:hover {
+        color: $primary-300;
+        border-bottom-color: rgba(34, 211, 238, 0.4);
+      }
+    }
+  }
+
+  @include below-md {
+    .download__card {
+      padding: $spacing-2xl $spacing-lg;
+    }
+
+    .download__actions {
+      flex-direction: column;
+
+      :global(.btn) {
+        width: 100%;
+      }
+    }
+  }
+</style>
