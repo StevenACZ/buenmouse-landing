@@ -129,11 +129,8 @@ const links = [
 
   links.forEach((link) => link.addEventListener("click", () => setOpen(false)));
 
-  let lastY = 0;
   function onScroll() {
-    const y = window.scrollY;
-    navbar?.classList.toggle("is-scrolled", y > 8);
-    lastY = y;
+    navbar?.classList.toggle("is-scrolled", window.scrollY > 8);
   }
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
