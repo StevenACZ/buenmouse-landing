@@ -1,0 +1,589 @@
+---
+import MissionControlIcon from "./icons/MissionControlIcon.astro";
+import SpacesIcon from "./icons/SpacesIcon.astro";
+import ZoomInIcon from "./icons/ZoomInIcon.astro";
+import ScrollIcon from "./icons/ScrollIcon.astro";
+import MouseIcon from "./icons/MouseIcon.astro";
+---
+
+<section id="gestures" class="gestures section">
+  <div class="container">
+    <div class="gestures__header">
+      <span class="eyebrow">Four gestures</span>
+      <h2 class="gestures__title">
+        Everything <span class="text-gradient">your trackpad does</span>,
+        straight from the mouse
+      </h2>
+      <p class="gestures__description">
+        Each gesture is its own toggle in the app. Turn them on, configure
+        them, and forget they're there — they feel like part of the system.
+      </p>
+    </div>
+
+    <div class="gestures__grid">
+      <article class="gesture-card gesture-card--mission">
+        <div class="gesture-card__head">
+          <div class="gesture-card__icon">
+            <MissionControlIcon size={22} />
+          </div>
+          <span class="gesture-card__status">
+            <span class="gesture-card__status-dot"></span>
+            On
+          </span>
+        </div>
+        <span class="gesture-card__tag">Middle Click → Mission Control</span>
+        <h3 class="gesture-card__title">Open Mission Control instantly</h3>
+        <p class="gesture-card__description">
+          Press the scroll wheel anywhere on macOS and Mission Control fans out
+          your windows. No keyboard shortcut, no hot corner.
+        </p>
+        <div class="gesture-card__preview gesture-card__preview--ripple">
+          <div class="ripple-mouse">
+            <MouseIcon size={28} />
+            <span class="ripple-mouse__dot"></span>
+          </div>
+          <span class="ripple ripple--1"></span>
+          <span class="ripple ripple--2"></span>
+          <span class="ripple ripple--3"></span>
+        </div>
+      </article>
+
+      <article class="gesture-card gesture-card--spaces">
+        <div class="gesture-card__head">
+          <div class="gesture-card__icon">
+            <SpacesIcon size={22} />
+          </div>
+          <span class="gesture-card__status">
+            <span class="gesture-card__status-dot"></span>
+            On
+          </span>
+        </div>
+        <span class="gesture-card__tag">Middle Drag → Switch Spaces</span>
+        <h3 class="gesture-card__title">Glide between Spaces</h3>
+        <p class="gesture-card__description">
+          Hold the scroll wheel and drag horizontally. Cross the threshold and
+          macOS slides to the next Space. Tunable distance, invertible
+          direction.
+        </p>
+        <div class="gesture-card__preview gesture-card__preview--spaces">
+          <div class="spaces-track">
+            <div class="spaces-track__card spaces-track__card--active"></div>
+            <div class="spaces-track__card"></div>
+            <div class="spaces-track__cursor">
+              <MouseIcon size={20} />
+            </div>
+          </div>
+          <div class="spaces-config">
+            <div class="spaces-config__row">
+              <span class="spaces-config__label">Drag distance</span>
+              <span class="spaces-config__value">100 px</span>
+            </div>
+            <div class="spaces-config__slider">
+              <span class="spaces-config__slider-fill"></span>
+              <span class="spaces-config__slider-knob"></span>
+            </div>
+            <div class="spaces-config__row spaces-config__row--actions">
+              <span class="spaces-config__chip">Invert</span>
+              <span class="spaces-config__hint">50 – 250 px</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="gesture-card gesture-card--zoom">
+        <div class="gesture-card__head">
+          <div class="gesture-card__icon">
+            <ZoomInIcon size={22} />
+          </div>
+          <span class="gesture-card__status">
+            <span class="gesture-card__status-dot"></span>
+            On
+          </span>
+        </div>
+        <span class="gesture-card__tag">⌃ + Scroll → Zoom In / Out</span>
+        <h3 class="gesture-card__title">Pinch-to-zoom, without pinching</h3>
+        <p class="gesture-card__description">
+          Hold Control and roll the wheel to zoom into any app that supports
+          it. Same muscle memory as the trackpad pinch.
+        </p>
+        <div class="gesture-card__preview gesture-card__preview--zoom">
+          <kbd class="zoom-key">⌃</kbd>
+          <span class="zoom-plus">+</span>
+          <div class="zoom-wheel">
+            <MouseIcon size={24} />
+            <span class="zoom-wheel__pulse"></span>
+          </div>
+          <span class="zoom-arrow">→</span>
+          <div class="zoom-target">
+            <ZoomInIcon size={28} />
+          </div>
+        </div>
+      </article>
+
+      <article class="gesture-card gesture-card--invert">
+        <div class="gesture-card__head">
+          <div class="gesture-card__icon">
+            <ScrollIcon size={22} />
+          </div>
+          <span class="gesture-card__status">
+            <span class="gesture-card__status-dot"></span>
+            On
+          </span>
+        </div>
+        <span class="gesture-card__tag">Invert Scroll → Natural Direction</span>
+        <h3 class="gesture-card__title">
+          Natural scrolling for any mouse wheel
+        </h3>
+        <p class="gesture-card__description">
+          The wheel finally moves content like a trackpad — flip it back any
+          time without rewiring the OS preference.
+        </p>
+        <div class="gesture-card__preview gesture-card__preview--invert">
+          <div class="invert-stage">
+            <span class="invert-arrow invert-arrow--up">▲</span>
+            <div class="invert-mouse"><MouseIcon size={26} /></div>
+            <span class="invert-arrow invert-arrow--down">▼</span>
+          </div>
+          <div class="invert-doc">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .gestures {
+    &__header {
+      max-width: 760px;
+      margin: 0 auto $spacing-3xl;
+      text-align: center;
+    }
+
+    &__title {
+      margin: $spacing-md 0;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    &__description {
+      color: $neutral-400;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: $spacing-lg;
+    }
+  }
+
+  .gesture-card {
+    display: grid;
+    gap: 0.6rem;
+    padding: $spacing-xl;
+    border-radius: $radius-2xl;
+    background: $bg-dark-secondary;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition:
+      border-color $transition-base,
+      transform $transition-base,
+      box-shadow $transition-base;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      border-color: rgba(34, 211, 238, 0.22);
+      transform: translateY(-4px);
+      box-shadow: $shadow-lg;
+    }
+
+    &__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    &__icon {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.22);
+      color: $primary-300;
+    }
+
+    &__status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: $accent-green;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    &__status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $accent-green;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    &__tag {
+      color: $neutral-500;
+      font-family: $font-mono;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    &__title {
+      font-size: 1.25rem;
+      line-height: 1.3;
+      color: $neutral-50;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    &__description {
+      color: $neutral-400;
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+
+    &__preview {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: $spacing-md;
+      padding: $spacing-lg;
+      min-height: 160px;
+      border-radius: $radius-lg;
+      background:
+        radial-gradient(
+          ellipse at center,
+          rgba(34, 211, 238, 0.08) 0%,
+          transparent 70%
+        ),
+        rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+    }
+  }
+
+  // Mission Control preview — ripples around the mouse
+  .ripple-mouse {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    color: $primary-200;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.32);
+
+    &__dot {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 4px;
+      border-radius: 2px;
+      background: $primary-300;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+  }
+
+  .ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    border-radius: 50%;
+    animation: ripple-out 2.4s ease-out infinite;
+    width: 80px;
+    height: 80px;
+
+    &--1 {
+      animation-delay: 0s;
+    }
+    &--2 {
+      animation-delay: 0.8s;
+    }
+    &--3 {
+      animation-delay: 1.6s;
+    }
+  }
+
+  @keyframes ripple-out {
+    0% {
+      opacity: 0.7;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.7);
+    }
+  }
+
+  // Spaces preview — two desktops + drifting cursor + slider
+  .gesture-card--spaces .gesture-card__preview {
+    flex-direction: column;
+    gap: $spacing-md;
+    align-items: stretch;
+    padding: $spacing-md;
+  }
+
+  .spaces-track {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    height: 70px;
+
+    &__card {
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+
+      &--active {
+        background: rgba(34, 211, 238, 0.12);
+        border-color: rgba(34, 211, 238, 0.4);
+      }
+    }
+
+    &__cursor {
+      position: absolute;
+      top: 50%;
+      left: 28%;
+      transform: translateY(-50%);
+      color: $primary-200;
+      animation: drift-x 2.4s ease-in-out infinite;
+    }
+  }
+
+  .spaces-config {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.78rem;
+
+    &__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: $neutral-300;
+
+      &--actions {
+        color: $neutral-500;
+      }
+    }
+
+    &__label {
+      font-weight: 600;
+    }
+
+    &__value {
+      font-family: $font-mono;
+      color: $neutral-100;
+    }
+
+    &__slider {
+      position: relative;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    &__slider-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 35%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, $primary-400, $primary-500);
+    }
+
+    &__slider-knob {
+      position: absolute;
+      top: 50%;
+      left: 35%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: $neutral-50;
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.3);
+    }
+
+    &__chip {
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.12);
+      color: $accent-blue;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+    }
+
+    &__hint {
+      font-family: $font-mono;
+    }
+  }
+
+  // Zoom preview
+  .gesture-card--zoom .gesture-card__preview {
+    gap: 0.85rem;
+  }
+
+  .zoom-key {
+    min-width: 2.1rem;
+    height: 2.1rem;
+    font-size: 0.95rem;
+  }
+
+  .zoom-plus {
+    color: $neutral-500;
+    font-weight: 700;
+  }
+
+  .zoom-wheel {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    color: $primary-200;
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+
+    &__pulse {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 12px;
+      border-radius: 3px;
+      background: $primary-300;
+      animation: scroll-y 1.4s ease-in-out infinite;
+    }
+  }
+
+  .zoom-arrow {
+    color: $neutral-500;
+  }
+
+  .zoom-target {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: $primary-200;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+  }
+
+  // Invert scroll preview
+  .gesture-card--invert .gesture-card__preview {
+    gap: $spacing-lg;
+    padding: $spacing-lg;
+  }
+
+  .invert-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .invert-arrow {
+    font-size: 0.95rem;
+    line-height: 1;
+
+    &--up {
+      color: $primary-300;
+      animation: scroll-y 1.6s ease-in-out infinite;
+    }
+
+    &--down {
+      color: $neutral-600;
+    }
+  }
+
+  .invert-mouse {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    color: $primary-200;
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+  }
+
+  .invert-doc {
+    display: grid;
+    gap: 0.4rem;
+    width: 100px;
+
+    span {
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.12);
+
+      &:nth-child(1) {
+        width: 70%;
+      }
+      &:nth-child(2) {
+        width: 100%;
+      }
+      &:nth-child(3) {
+        width: 50%;
+      }
+      &:nth-child(4) {
+        width: 80%;
+      }
+    }
+  }
+
+  @include below-md {
+    .gestures__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
