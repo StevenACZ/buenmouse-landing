@@ -1,0 +1,168 @@
+// ============================================
+// UTILITIES — Reusable Utility Classes
+// ============================================
+
+@use "variables" as *;
+@use "mixins" as *;
+
+// Layout
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+}
+
+.section {
+  padding: $spacing-4xl 0;
+  position: relative;
+}
+
+// Typography
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    $primary-300 0%,
+    $primary-400 50%,
+    $accent-blue 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-muted {
+  color: $neutral-400;
+}
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: $spacing-md $spacing-xl;
+  border-radius: $radius-lg;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all $transition-base;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: $gradient-primary;
+  color: $neutral-950;
+  box-shadow: $shadow-md, $shadow-glow-sm;
+
+  &:hover {
+    box-shadow: $shadow-lg, $shadow-glow;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: $shadow-md, $shadow-glow-sm;
+  }
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: $neutral-100;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+}
+
+.btn-ghost {
+  background: transparent;
+  color: $neutral-200;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: $neutral-50;
+  }
+}
+
+.btn-lg {
+  padding: $spacing-lg $spacing-2xl;
+  font-size: 1.05rem;
+}
+
+// Cards
+.card {
+  background: $bg-dark-secondary;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: $radius-xl;
+  padding: $spacing-xl;
+  transition: all $transition-base;
+
+  &:hover {
+    border-color: rgba(34, 211, 238, 0.22);
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+// Eyebrow / tag
+.eyebrow {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $primary-300;
+}
+
+// Keyboard chip
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.8rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: $neutral-100;
+  font-family: $font-mono;
+  font-size: 0.85em;
+  font-weight: 600;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+}
+
+// Responsive spacing
+@include below-lg {
+  .section {
+    padding: $spacing-3xl 0;
+  }
+}
+
+@include below-md {
+  .section {
+    padding: $spacing-2xl 0;
+  }
+
+  .container {
+    padding: 0 $spacing-md;
+  }
+}
+
+@include below-sm {
+  .section {
+    padding: $spacing-xl 0;
+  }
+}

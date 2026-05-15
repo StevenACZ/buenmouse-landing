@@ -1,0 +1,29 @@
+// ============================================
+// MIXINS — Reusable Styles
+// ============================================
+
+@use "variables" as *;
+
+@mixin below-xl {
+  @media (max-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin below-lg {
+  @media (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin below-md {
+  @media (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin below-sm {
+  @media (max-width: $breakpoint-sm) {
+    @content;
+  }
+}
